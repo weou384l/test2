@@ -6,12 +6,13 @@ async function getUserNetworkInfo() {
   try {
     const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01');
     const data = await response.json();
+
     return {
       ip: data.ip,
-      isp: data.org || '',
-      country: data.country || 'IR'
+      isp: data.org,
+      country: data.country
     };
-  } catch (error) {
+  } catch (e) {
     return {
       ip: null,
       isp: null,
@@ -38,72 +39,69 @@ function renderLogin() {
 function renderDashboard(networkInfo) {
   document.body.className = 'dashboard-background';
 
-  const isCloudflare = networkInfo.isp && networkInfo.isp.toLowerCase().includes('cloudflare');
-  const isIran = networkInfo.country === 'IR' || networkInfo.ip === null;
+  const isCloudflare = networkInfo.isp?.toLowerCase().includes('cloudflare');
+  const flagURL = networkInfo.country ? `https://flagcdn.com/w40/${networkInfo.country.toLowerCase()}.png` : '';
+  let ipSection = '';
+  let statusText = '';
 
-  let ipDisplay = '';
-  let ispDisplay = '';
-  let statusNote = '';
-
-  if (networkInfo.ip === null) {
-    ipDisplay = `<span class="text-cyan-400">ایران 🇮🇷</span>`;
-    statusNote = `<div class="text-yellow-400 text-sm mt-2">🟡 شما در حال استفاده از سرویس ما نمی‌باشید</div>`;
+  if (!networkInfo.ip) {
+    ipSection = `<div class="text-lg mb-2 text-gray-300">
+      <img src="https://flagcdn.com/w40/ir.png" class="flag-icon" /> ایران
+    </div>`;
+    statusText = `<div class="text-orange-400 text-sm mt-2">🟠 شما در حال استفاده از سرویس ما نمی‌باشید</div>`;
   } else {
-    const flag = `<img src="https://flagcdn.com/24x18/${networkInfo.country.toLowerCase()}.png" class="inline ml-1"/>`;
-    ipDisplay = `${networkInfo.ip} ${flag}`;
-    if (isCloudflare) {
-      statusNote = `<div class="text-green-400 text-sm mt-2">🟢 شما اکنون در حال استفاده از سرویس ما می‌باشید</div>`;
-    } else {
-      statusNote = `<div class="text-yellow-400 text-sm mt-2">🟡 شما در حال استفاده از سرویس ما نمی‌باشید</div>`;
-    }
-    ispDisplay = isCloudflare ? '' : `<div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>`;
+    ipSection = `
+      <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span></div>
+      <div class="text-lg mb-2 text-gray-300">
+        <img src="${flagURL}" class="flag-icon" />
+        کشور: ${networkInfo.country === 'IR' ? 'ایران' : networkInfo.country}
+      </div>
+    `;
+    statusText = isCloudflare
+      ? `<div class="text-green-400 text-sm mt-2">🟢 شما اکنون در حال استفاده از سرویس ما می‌باشید</div>`
+      : `<div class="text-orange-400 text-sm mt-2">🟠 شما در حال استفاده از سرویس ما نمی‌باشید</div>`;
   }
 
-  const today = new Date();
-  const jdate = jalaali.toJalaali(today);
-  const jalaliStr = `${jdate.jy}/${jdate.jm.toString().padStart(2, '0')}/${jdate.jd.toString().padStart(2, '0')}`;
-  const gregorianStr = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
+  const jalali = window.jalaali.toJalaali(new Date());
+  const gregorian = new Date().toLocaleDateString('fa-IR');
 
   app.innerHTML = `
     <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+      <!-- تاریخ -->
+      <div class="card text-center">
+        <div>تاریخ شمسی: ${jalali.jy}/${jalali.jm}/${jalali.jd}</div>
+        <div>تاریخ میلادی: ${gregorian}</div>
+      </div>
 
+      <!-- ردیف اول -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
           <div class="circle-progress">
             <svg width="120" height="120">
-              <circle class="progress-bg" cx="60" cy="60" r="50"/>
-              <circle class="progress" cx="60" cy="60" r="50"/>
+              <circle class="bg" cx="60" cy="60" r="50" />
+              <circle class="progress" cx="60" cy="60" r="50" />
             </svg>
-            <div class="percent-text" id="credit-percent">0%</div>
+            <div class="percent-text" id="credit-percent">85%</div>
           </div>
+          <p class="mt-2">از حجم سرویس شما باقی‌مانده است.</p>
         </div>
 
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
-          <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${ipDisplay}</span></div>
-          ${ispDisplay}
-          ${statusNote}
+          ${ipSection}
+          ${networkInfo.ip && networkInfo.isp ? `<div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>` : ''}
+          ${statusText}
         </div>
       </div>
 
-      <div class="w-full max-w-2xl">
-        <div class="card text-center flex items-center justify-center gap-4">
-          ${
-            window.location.protocol === "https:" 
-              ? `<span class="text-green-400 text-xl">🟢 اتصال شما امن است (HTTPS)</span>`
-              : `<span class="text-yellow-400 text-xl">🟡 اتصال امن نیست (HTTP)</span>`
-          }
-        </div>
-      </div>
-
+      <!-- تست سرعت -->
       <div class="w-full max-w-2xl">
         <div class="card text-center">
-          <h2 class="text-xl font-bold mb-4">تاریخ امروز</h2>
-          <p class="text-lg text-gray-200">شمسی: <span class="text-cyan-400">${jalaliStr}</span></p>
-          <p class="text-lg text-gray-200 mt-2">میلادی: <span class="text-cyan-400">${gregorianStr}</span></p>
+          <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
+          <iframe src="https://fast.com" class="w-full h-80 rounded" style="border: none;"></iframe>
         </div>
       </div>
 
@@ -116,9 +114,9 @@ function renderDashboard(networkInfo) {
 
 function updateCreditCircle(percent) {
   const circle = document.querySelector('.circle-progress .progress');
-  if (!circle) return;
   const radius = circle.r.baseVal.value;
   const circumference = 2 * Math.PI * radius;
+
   circle.style.strokeDasharray = `${circumference}`;
   circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
   document.getElementById('credit-percent').innerText = `${percent}%`;
@@ -130,7 +128,7 @@ function handleLogin() {
 
   if (user === 'admin' && pass === '1234') {
     loggedIn = true;
-    getUserNetworkInfo().then(networkInfo => renderDashboard(networkInfo));
+    getUserNetworkInfo().then(renderDashboard);
   } else {
     alert('نام کاربری یا رمز عبور اشتباه است.');
   }
