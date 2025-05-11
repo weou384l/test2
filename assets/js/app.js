@@ -93,6 +93,33 @@ document.body.className = 'dashboard-background';
   `;
 }
 
+// انیمیشن دایره درصد
+function animateProgress(targetPercent) {
+  const circle = document.getElementById('progress-ring');
+  const text = document.getElementById('progress-text');
+  const radius = 54;
+  const circumference = 2 * Math.PI * radius;
+
+  let current = 0;
+
+  const update = () => {
+    const offset = circumference * (1 - current / 100);
+    circle.style.strokeDashoffset = offset;
+    text.textContent = `${Math.round(current)}%`;
+
+    if (current < targetPercent) {
+      current += 1;
+      requestAnimationFrame(update);
+    }
+  };
+
+  circle.style.strokeDasharray = circumference;
+  requestAnimationFrame(update);
+}
+
+// فراخوانی داخل renderDashboard بعد از insert HTML:
+setTimeout(() => animateProgress(85), 300);
+
 
 function handleLogin() {
   const user = document.getElementById('username').value;
