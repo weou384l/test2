@@ -46,6 +46,18 @@ function renderDashboard(networkInfo) {
         </div>
       </div>
 
+      <!-- ردیف جدید: وضعیت امنیت اتصال -->
+<div class="w-full max-w-2xl">
+  <div class="card text-center flex items-center justify-center gap-4">
+    ${
+      window.location.protocol === "https:" 
+        ? `<span class="text-green-400 text-xl">🟢 اتصال شما امن است (HTTPS)</span>`
+        : `<span class="text-yellow-400 text-xl">🟡 اتصال امن نیست (HTTP)</span>`
+    }
+  </div>
+</div>
+
+
       <!-- ردیف دوم (کارت تست سرعت) -->
       <div class="w-full max-w-2xl">
         <div class="card text-center">
