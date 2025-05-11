@@ -1,4 +1,4 @@
-const app = document.getElementById('app');
+document.body.className = 'login-background';
 
 let loggedIn = false;
 
