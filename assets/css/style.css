@@ -1,11 +1,9 @@
-/* فونت فارسی و انگلیسی */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn&family=Orbitron:wght@400;700&display=swap');
 
-/* تنظیم فونت برای صفحه */
 body {
-  font-family: 'Vazir', sans-serif, 'Orbitron', sans-serif;
+  font-family: 'Vazirmatn', 'Orbitron', sans-serif;
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+  color: #f0f0f0;
 }
 
 .button-glow {
@@ -20,9 +18,10 @@ body {
 }
 
 .card {
-  background-color: #111827;
+  background-color: #111827cc; /* بلور با transparency */
   border-radius: 1rem;
   padding: 2rem;
+  backdrop-filter: blur(10px);
   box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
   transition: transform 0.3s ease;
 }
@@ -43,69 +42,38 @@ body {
   background-attachment: fixed;
 }
 
-/* تنظیم برای دایره پیشرفت */
+/* دایره پیشرفت */
 .circle-progress {
   position: relative;
   width: 120px;
   height: 120px;
-  background-color: #1a1a1a;
-  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.circle-progress svg {
+  transform: rotate(-90deg);
+}
+
+.circle-progress circle {
+  fill: none;
+  stroke-width: 10;
+}
+
+.circle-progress .bg {
+  stroke: #374151;
 }
 
 .circle-progress .progress {
-  fill: none;
   stroke: #00c2ff;
-  stroke-width: 10;
-  transition: stroke-dashoffset 0.35s;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
 }
 
-.circle-progress .percentage {
+.circle-progress span {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.5rem;
+  font-size: 20px;
   font-weight: bold;
-  color: #00c2ff;
-}
-
-.card .text-cyan-400 {
-  color: #00c2ff;
-}
-
-.card .text-green-400 {
-  color: #22c55e;
-}
-
-.card .text-yellow-400 {
-  color: #fbbf24;
-}
-
-/* استایل برای شبکه */
-.network-info {
-  font-size: 1rem;
-  color: #9ca3af;
-}
-
-.network-info .ip, .network-info .isp {
-  font-weight: bold;
-}
-
-/* دکمه تست سرعت */
-#speed-result {
-  font-size: 1rem;
-  color: #9ca3af;
-  margin-bottom: 20px;
-}
-
-button {
-  cursor: pointer;
-}
-
-/* استایل برای نوشته IP */
-.ip-info {
-  font-size: 1rem;
-  color: #fbbf24;
-  font-weight: bold;
-  margin-top: 10px;
 }
