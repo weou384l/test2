@@ -2,6 +2,15 @@ const app = document.getElementById('app');
 
 let loggedIn = false;
 
+async function getUserNetworkInfo() {
+  const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01');
+  const data = await response.json();
+  return {
+    ip: data.ip,
+    isp: data.org
+  };
+}
+
 function renderLogin() {
   app.innerHTML = `
     <div class="flex items-center justify-center min-h-screen px-4">
@@ -17,7 +26,7 @@ function renderLogin() {
   `;
 }
 
-function renderDashboard() {
+function renderDashboard(networkInfo) {
   app.innerHTML = `
     <div class="min-h-screen p-6 flex flex-col items-center justify-center space-y-8">
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
@@ -28,8 +37,9 @@ function renderDashboard() {
           <p>از حجم سرویس شما باقی‌مانده است.</p>
         </div>
         <div class="card text-center">
-          <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
-          <div id="speed-result" class="text-lg mb-2 text-gray-300">برای شروع دکمه را بزنید</div>
+          <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
+          <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span></div>
+          <div class="text-lg mb-2 text-gray-300">شرکت ارائه‌دهنده اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>
           <button onclick="testSpeed()" class="mt-4 py-2 px-4 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
         </div>
       </div>
@@ -44,7 +54,7 @@ function handleLogin() {
 
   if (user === 'admin' && pass === '1234') {
     loggedIn = true;
-    renderDashboard();
+    getUserNetworkInfo().then(networkInfo => renderDashboard(networkInfo));
   } else {
     alert('نام کاربری یا رمز عبور اشتباه است.');
   }
