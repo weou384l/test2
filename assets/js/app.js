@@ -3,18 +3,33 @@ document.body.className = 'login-background';
 let loggedIn = false;
 
 async function getUserNetworkInfo() {
-  const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01');
-  const data = await response.json();
-  return {
-    ip: data.ip,
-    isp: data.org
-  };
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+    const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01', {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    const data = await response.json();
+    return {
+      ip: data.ip,
+      isp: data.org
+    };
+  } catch (error) {
+    console.warn('خطا در دریافت اطلاعات شبکه:', error);
+    return {
+      ip: '🇮🇷 ایران',
+      isp: 'نامشخص'
+    };
+  }
 }
 
 function renderLogin() {
   app.innerHTML = `
     <div class="flex items-center justify-center min-h-screen px-4">
-      <div class="bg-gray-900 bg-opacity-70 p-8 rounded-2xl shadow-2xl max-w-sm w-full backdrop-blur">
+      <div class="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-sm w-full backdrop-blur-sm bg-opacity-70">
         <h2 class="text-2xl font-bold text-center mb-6">ورود به حساب</h2>
         <input id="username" type="text" placeholder="نام کاربری"
           class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none" />
@@ -29,10 +44,10 @@ function renderLogin() {
 function renderDashboard(networkInfo) {
   document.body.className = 'dashboard-background';
 
-  const isCloudflare = /cloudflare/i.test(networkInfo.isp);
-  const networkMessage = isCloudflare
-    ? `<p class="text-green-400 text-sm mt-2">شما اکنون در حال استفاده از سرویس ما می‌باشید.</p>`
-    : `<p class="text-yellow-400 text-sm mt-2">شما در حال استفاده از سرویس ما نمی‌باشید.</p>`;
+  const isCloudflare = networkInfo.isp.toLowerCase().includes('cloudflare');
+  const ispNote = isCloudflare
+    ? `<p class="text-green-400 mt-2">شما اکنون در حال استفاده از سرویس ما می‌باشید.</p>`
+    : `<p class="text-yellow-400 mt-2">شما در حال استفاده از سرویس ما نمی‌باشید.</p>`;
 
   app.innerHTML = `
     <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
@@ -41,21 +56,21 @@ function renderDashboard(networkInfo) {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
-          <div class="circle-progress">
+          <div class="circle-progress mx-auto mb-2">
             <svg width="120" height="120">
-              <circle class="bg" cx="60" cy="60" r="50"/>
-              <circle class="progress" cx="60" cy="60" r="50"/>
+              <circle cx="60" cy="60" r="50" stroke="#2d3748" stroke-width="10" fill="none"/>
+              <circle class="progress" cx="60" cy="60" r="50" stroke="#00c2ff" stroke-width="10" fill="none" stroke-linecap="round"/>
             </svg>
-            <span id="credit-percent">0%</span>
+            <div id="credit-percent" class="text-2xl font-bold text-cyan-400 mt-2">0%</div>
           </div>
-          <p class="mt-2 text-sm">از حجم سرویس شما باقی‌مانده است.</p>
+          <p>از حجم سرویس شما باقی‌مانده است.</p>
         </div>
 
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
-          <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span></div>
+          <div class="text-lg mb-2 text-gray-300">آی‌پی / کشور: <span class="text-cyan-400">${networkInfo.ip}</span></div>
           <div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>
-          ${networkMessage}
+          ${ispNote}
         </div>
       </div>
 
@@ -81,7 +96,7 @@ function renderDashboard(networkInfo) {
     </div>
   `;
 
-  updateCreditCircle(85); // درصد دلخواه
+  updateCreditCircle(85); // برای مانده اعتبار
 }
 
 function updateCreditCircle(percent) {
@@ -91,6 +106,7 @@ function updateCreditCircle(percent) {
 
   circle.style.strokeDasharray = `${circumference}`;
   circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
+  
   document.getElementById('credit-percent').innerText = `${percent}%`;
 }
 
