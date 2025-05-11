@@ -3,6 +3,7 @@
 body {
   font-family: 'Vazirmatn', 'Orbitron', sans-serif;
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+  color: #f0f0f0;
 }
 
 .button-glow {
@@ -10,21 +11,21 @@ body {
   box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
   transition: all 0.3s ease-in-out;
 }
+
 .button-glow:hover {
   background-color: #008ecc;
   box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
 }
 
 .card {
-  background-color: #111827cc;
+  background-color: rgba(17, 24, 39, 0.8);
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
-  transition: transform 0.3s ease;
+  backdrop-filter: blur(8px);
 }
 
 .login-background {
-  backdrop-filter: blur(10px);
   background-image: url('../../image/ne.jpg');
   background-size: cover;
   background-position: center;
@@ -44,29 +45,35 @@ body {
   width: 120px;
   height: 120px;
   position: relative;
-  margin: 0 auto;
+  margin: auto;
 }
+
 .circle-progress svg {
   transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
 }
-.circle-progress circle {
-  fill: none;
+
+.circle-progress .background {
+  stroke: #444;
   stroke-width: 10;
+  fill: none;
 }
-.circle-progress .bg {
-  stroke: #374151;
-}
+
 .circle-progress .progress {
   stroke: #00c2ff;
+  stroke-width: 10;
+  fill: none;
   stroke-linecap: round;
-  transition: stroke-dashoffset 1s ease;
+  transition: stroke-dashoffset 1s ease-out;
 }
-.circle-progress .text {
+
+.circle-progress .center-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
+  color: #00c2ff;
   font-weight: bold;
 }
-
