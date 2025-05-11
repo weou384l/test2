@@ -27,6 +27,8 @@ function renderLogin() {
 }
 
 function renderDashboard(networkInfo) {
+  document.body.className = 'dashboard-background';
+
   app.innerHTML = `
     <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
