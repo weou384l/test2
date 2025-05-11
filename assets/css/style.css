@@ -107,5 +107,5 @@ body {
 }
   #progress-ring {
   transition: stroke-dashoffset 0.3s ease-out;
-    
+}    
 }
