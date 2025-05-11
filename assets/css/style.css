@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+}
+
+.button-glow {
+  background-color: #00c2ff;
+  box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-glow:hover {
+  background-color: #008ecc;
+  box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
+}
+
+.card {
+  background-color: #111827;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
