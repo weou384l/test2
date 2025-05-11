@@ -79,20 +79,21 @@ document.body.className = 'dashboard-background';
 </div>
 
 
-      <!-- ردیف دوم (کارت تست سرعت) -->
-      <div class="w-full max-w-2xl flex justify-center">
+     <!-- تست سرعت و دکمه خروج -->
+<div class="w-full max-w-2xl flex flex-col items-center space-y-6">
+  <!-- کارت تست سرعت -->
   <div class="card text-center w-full">
     <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
     <div id="speed-result" class="mb-4 text-lg text-gray-300">برای شروع، دکمه زیر را بزنید.</div>
     <button onclick="testSpeed()" class="py-2 px-6 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
   </div>
+
+  <!-- دکمه خروج -->
+  <button onclick="logout()" class="py-2 px-6 bg-red-600 rounded hover:bg-red-700 transition">
+    خروج
+  </button>
 </div>
 
-
-      <button onclick="logout()" class="mt-8 py-2 px-4 bg-red-600 rounded hover:bg-red-700 transition">خروج</button>
-    </div>
-  `;
-}
 
 // انیمیشن دایره درصد
 function animateProgress(targetPercent) {
