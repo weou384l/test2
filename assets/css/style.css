@@ -1,39 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
 body {
-  font-family: 'Vazirmatn', 'Poppins', sans-serif;
-  color: #f5f5f5;
+  font-family: 'Vazirmatn', sans-serif;
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+  color: #f1f1f1;
 }
 
+/* دکمه با افکت نور */
 .button-glow {
   background-color: #00c2ff;
-  color: black;
   box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
   transition: all 0.3s ease-in-out;
 }
-
 .button-glow:hover {
   background-color: #008ecc;
   box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
 }
 
+/* کارت‌ها */
 .card {
-  background-color: rgba(17, 24, 39, 0.8);
+  background-color: #111827;
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
-  color: #f5f5f5;
   transition: transform 0.3s ease;
 }
 
+/* پس‌زمینه‌ها */
 .login-background {
   background-image: url('../../image/ne.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  backdrop-filter: blur(6px);
 }
 
 .dashboard-background {
@@ -44,65 +44,21 @@ body {
   background-attachment: fixed;
 }
 
-.login-box {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  color: #ffffff;
-  width: 320px;
+/* svg دایره‌ای مانده اعتبار */
+svg circle {
+  transition: stroke-dashoffset 0.5s ease;
 }
 
-.login-box h2 {
-  margin-bottom: 20px;
-  font-weight: 700;
+/* ورودی‌ها */
+input {
+  background-color: #1f2937;
+  color: #f1f1f1;
+}
+input::placeholder {
+  color: #9ca3af;
 }
 
-.login-box input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
-}
-
-.login-box input::placeholder {
-  color: #dddddd;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 8px;
-  background-color: #00c2ff;
-  color: black;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.login-box button:hover {
-  background-color: #008ecc;
-}
-
-.login-background {
-  background-image: url('../../image/ne.jpg'); /* تصویر پس‌زمینه صفحه ورود */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-.dashboard-background {
-  background-image: url('../../image/ne.jpg'); /* تصویر پس‌زمینه داشبورد */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-   
+/* تراز کلی */
+h1, h2, h3, p, div {
+  text-align: center;
 }
