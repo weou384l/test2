@@ -3,7 +3,7 @@ const app = document.getElementById('app');
 let loggedIn = false;
 
 async function getUserNetworkInfo() {
-  const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01');
+  const response = await fetch('https://ipinfo.io/json?token=at_mz4G3v9KWtTYdEXAMPLE');
   const data = await response.json();
   return {
     ip: data.ip,
