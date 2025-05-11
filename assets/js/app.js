@@ -28,25 +28,38 @@ function renderLogin() {
 
 function renderDashboard(networkInfo) {
   app.innerHTML = `
-    <div class="min-h-screen p-6 flex flex-col items-center justify-center space-y-8">
+    <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full">
+
+      <!-- ردیف اول -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
           <div class="text-4xl font-bold text-cyan-400 mb-2">85%</div>
           <p>از حجم سرویس شما باقی‌مانده است.</p>
         </div>
+
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
           <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span></div>
-          <div class="text-lg mb-2 text-gray-300">شرکت ارائه‌دهنده اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>
-          <button onclick="testSpeed()" class="mt-4 py-2 px-4 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
+          <div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>
         </div>
       </div>
+
+      <!-- ردیف دوم (کارت تست سرعت) -->
+      <div class="w-full max-w-2xl">
+        <div class="card text-center">
+          <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
+          <div id="speed-result" class="mb-4 text-lg text-gray-300">برای شروع، دکمه زیر را بزنید.</div>
+          <button onclick="testSpeed()" class="py-2 px-6 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
+        </div>
+      </div>
+
       <button onclick="logout()" class="mt-8 py-2 px-4 bg-red-600 rounded hover:bg-red-700 transition">خروج</button>
     </div>
   `;
 }
+
 
 function handleLogin() {
   const user = document.getElementById('username').value;
