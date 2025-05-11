@@ -1,9 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 body {
   font-family: 'Vazirmatn', 'Orbitron', sans-serif;
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
   color: #f0f0f0;
+}
+
+.card {
+  background-color: rgba(17, 24, 39, 0.7); /* کمی شفاف برای پس‌زمینه */
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
+  transition: transform 0.3s ease;
 }
 
 .button-glow {
@@ -17,22 +26,6 @@ body {
   box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
 }
 
-.card {
-  background-color: #111827cc;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
-  backdrop-filter: blur(12px);
-}
-
-.login-background {
-  background-image: url('../../image/ne.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
 .dashboard-background {
   background-image: url('../../image/ne.jpg');
   background-size: cover;
@@ -42,9 +35,9 @@ body {
 }
 
 .circle-progress {
+  position: relative;
   width: 120px;
   height: 120px;
-  position: relative;
   margin: 0 auto;
 }
 
@@ -52,18 +45,17 @@ body {
   transform: rotate(-90deg);
 }
 
-.circle-progress circle {
-  fill: none;
+.circle-progress .progress-bg {
+  stroke: #334155;
   stroke-width: 10;
-  stroke-linecap: round;
-}
-
-.circle-progress .bg {
-  stroke: #2d3748;
+  fill: none;
 }
 
 .circle-progress .progress {
   stroke: #00c2ff;
+  stroke-width: 10;
+  fill: none;
+  stroke-linecap: round;
   transition: stroke-dashoffset 1s ease;
 }
 
@@ -73,6 +65,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
-  font-weight: bold;
   color: #00c2ff;
+  font-weight: bold;
 }
