@@ -25,7 +25,7 @@ body {
 }
 
 .login-background {
-  background-image: url('https://img.freepik.com/free-vector/copy-space-blue-circuits-digital-background_23-2148821699.jpg?t=st=1746973324~exp=1746976924~hmac=6a93ad1c2348a4e06e2b418177da26fbf42106757f7420ccc7a32241c78bebd0&w=996');
+  background-image: url('image/en.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -33,7 +33,7 @@ body {
 }
 
 .dashboard-background {
-  background-image: url('https://img.freepik.com/free-vector/copy-space-blue-circuits-digital-background_23-2148821699.jpg?t=st=1746973324~exp=1746976924~hmac=6a93ad1c2348a4e06e2b418177da26fbf42106757f7420ccc7a32241c78bebd0&w=996');
+  background-image: url('image/en.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
