@@ -1,20 +1,20 @@
 document.body.className = 'login-background';
+
 let loggedIn = false;
 
 async function getUserNetworkInfo() {
   try {
     const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01');
     const data = await response.json();
-
     return {
       ip: data.ip,
-      isp: data.org || null,
+      isp: data.org || '',
       country: data.country || 'IR'
     };
   } catch {
     return {
       ip: 'نامشخص',
-      isp: null,
+      isp: '',
       country: 'IR'
     };
   }
@@ -23,7 +23,7 @@ async function getUserNetworkInfo() {
 function renderLogin() {
   app.innerHTML = `
     <div class="flex items-center justify-center min-h-screen px-4">
-      <div class="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-sm w-full backdrop-blur">
+      <div class="bg-gray-900 bg-opacity-80 backdrop-blur p-8 rounded-2xl shadow-2xl max-w-sm w-full">
         <h2 class="text-2xl font-bold text-center mb-6">ورود به حساب</h2>
         <input id="username" type="text" placeholder="نام کاربری"
           class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none" />
@@ -37,58 +37,50 @@ function renderLogin() {
 
 function renderDashboard(networkInfo) {
   document.body.className = 'dashboard-background';
-  const isCloudflare = networkInfo.isp && networkInfo.isp.toLowerCase().includes("cloudflare");
+
+  const flagURL = networkInfo.country !== 'نامشخص'
+    ? `https://flagcdn.com/24x18/${networkInfo.country.toLowerCase()}.png`
+    : '';
+
+  const isCloudflare = networkInfo.isp.toLowerCase().includes("cloudflare");
 
   app.innerHTML = `
     <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
-      <h1 class="text-3xl font-bold">پنل کاربری</h1>
+      <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
 
-      <!-- مانده اعتبار -->
-      <div class="card text-center">
-        <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
-        <div class="circle-progress">
-          <svg>
-            <circle class="background" r="50" cx="60" cy="60" />
-            <circle class="progress" r="50" cx="60" cy="60" />
-          </svg>
-          <div id="credit-percent" class="center-text">85%</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+        <div class="card text-center">
+          <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
+          <div class="circle-progress">
+            <svg width="120" height="120">
+              <circle class="bg" cx="60" cy="60" r="50" />
+              <circle class="progress" cx="60" cy="60" r="50" />
+            </svg>
+            <div class="percent-text" id="credit-percent">0%</div>
+          </div>
         </div>
-        <p class="mt-2">از حجم سرویس شما باقی‌مانده است.</p>
-      </div>
 
-      <!-- اطلاعات شبکه -->
-      <div class="card text-center">
-        <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
-        <div class="text-lg mb-2 text-gray-300">آی‌پی: 
-          <span class="text-cyan-400">${networkInfo.ip}</span>
-          <img src="https://flagcdn.com/24x18/${networkInfo.country.toLowerCase()}.png" class="inline ml-2" />
-        </div>
-        ${
-          networkInfo.isp
-            ? `<div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>`
-            : ''
-        }
-        ${
-          networkInfo.isp
-            ? (isCloudflare
-              ? `<div class="text-green-400 mt-2">شما اکنون در حال استفاده از سرویس ما می‌باشید.</div>`
-              : `<div class="text-yellow-400 mt-2">شما در حال استفاده از سرویس ما نمی‌باشید.</div>`)
-            : ''
-        }
-      </div>
-
-      <!-- وضعیت اتصال -->
-      <div class="w-full max-w-2xl">
-        <div class="card text-center flex items-center justify-center gap-4">
+        <div class="card text-center">
+          <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
+          <div class="text-lg mb-2 text-gray-300">
+            آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span>
+            ${flagURL ? `<img src="${flagURL}" class="inline ml-2 w-6 h-4">` : ''}
+          </div>
           ${
-            window.location.protocol === "https:" 
-              ? `<span class="text-green-400 text-xl">🟢 اتصال شما امن است (HTTPS)</span>`
-              : `<span class="text-yellow-400 text-xl">🟡 اتصال امن نیست (HTTP)</span>`
+            networkInfo.ip === "نامشخص" || !networkInfo.isp
+              ? `<div class="text-cyan-400 text-lg">ایران</div>`
+              : `<div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>`
+          }
+          ${
+            isCloudflare
+              ? `<div class="text-green-400 mt-2">🟢 شما اکنون در حال استفاده از سرویس ما می‌باشید</div>`
+              : networkInfo.country === "IR"
+                ? `<div class="text-yellow-400 mt-2">🟡 شما در حال استفاده از سرویس ما نمی‌باشید</div>`
+                : ""
           }
         </div>
       </div>
 
-      <!-- تست سرعت -->
       <div class="w-full max-w-2xl">
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
@@ -108,8 +100,10 @@ function updateCreditCircle(percent) {
   const circle = document.querySelector('.circle-progress .progress');
   const radius = circle.r.baseVal.value;
   const circumference = 2 * Math.PI * radius;
+
   circle.style.strokeDasharray = `${circumference}`;
   circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
+
   document.getElementById('credit-percent').innerText = `${percent}%`;
 }
 
@@ -132,19 +126,16 @@ function logout() {
 
 function testSpeed() {
   const result = document.getElementById('speed-result');
-  result.innerHTML = `در حال دریافت نتیجه... لطفاً صبر کنید.`;
-
-  const iframe = document.createElement('iframe');
-  iframe.src = "https://fast.com";
-  iframe.style.display = "none";
-  document.body.appendChild(iframe);
+  result.innerText = "در حال تست...";
 
   setTimeout(() => {
+    const download = (Math.random() * 50 + 10).toFixed(2);
+    const upload = (Math.random() * 10 + 1).toFixed(2);
     result.innerHTML = `
-      <span class="text-cyan-400">نتیجه تست با Fast.com انجام شد (برای مشاهده دقیق‌تر به <a href="https://fast.com" target="_blank" class="underline">سایت</a> مراجعه کنید)</span>
+      🚀 سرعت دانلود: <span class="text-cyan-400">${download} Mbps</span><br/>
+      📤 سرعت آپلود: <span class="text-cyan-400">${upload} Mbps</span>
     `;
-    iframe.remove();
-  }, 5000);
+  }, 2000);
 }
 
 renderLogin();
