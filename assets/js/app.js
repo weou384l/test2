@@ -35,12 +35,30 @@ document.body.className = 'dashboard-background';
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
 
       <!-- ردیف اول -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-        <div class="card text-center">
-          <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
-          <div class="text-4xl font-bold text-cyan-400 mb-2">85%</div>
-          <p>از حجم سرویس شما باقی‌مانده است.</p>
-        </div>
+      <div class="card text-center">
+  <h2 class="text-xl font-bold mb-6">مانده اعتبار</h2>
+  <div class="relative w-40 h-40 mx-auto mb-4">
+    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="54" stroke="#2d3748" stroke-width="12" fill="none" />
+      <circle
+        id="progress-ring"
+        cx="60"
+        cy="60"
+        r="54"
+        stroke="#06b6d4"
+        stroke-width="12"
+        fill="none"
+        stroke-linecap="round"
+        stroke-dasharray="339.29"
+        stroke-dashoffset="339.29"
+      />
+    </svg>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <span id="progress-text" class="text-3xl font-bold text-cyan-400">0%</span>
+    </div>
+  </div>
+  <p class="text-sm text-gray-300">از حجم سرویس شما باقی‌مانده است.</p>
+</div>
 
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
