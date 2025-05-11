@@ -1,23 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Vazirmatn:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
 body {
-  font-family: 'Vazirmatn', 'Orbitron', sans-serif;
+  font-family: 'Vazirmatn', sans-serif;
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
-  color: #f1f1f1;
+  color: #ffffff;
 }
 
-/* افکت بلور برای فرم ورود */
+.button-glow {
+  background-color: #00c2ff;
+  box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-glow:hover {
+  background-color: #008ecc;
+  box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
+}
+
+.card {
+  background-color: #111827cc;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
 .login-background {
   background-image: url('../../image/ne.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
 
 .dashboard-background {
@@ -28,66 +42,35 @@ body {
   background-attachment: fixed;
 }
 
-/* دکمه با افکت نور */
-.button-glow {
-  background-color: #00c2ff;
-  box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
-  transition: all 0.3s ease-in-out;
-}
-.button-glow:hover {
-  background-color: #008ecc;
-  box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
-}
-
-/* کارت‌ها */
-.card {
-  background-color: #111827;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
-  transition: transform 0.3s ease;
-  text-align: center;
-}
-
-/* ورودی‌ها */
-input {
-  background-color: #1f2937;
-  color: #f1f1f1;
-  border: none;
-}
-input::placeholder {
-  color: #9ca3af;
-}
-input:focus {
-  outline: none;
-  border: 1px solid #00c2ff;
-}
-
-/* گراف مانده اعتبار */
 .circle-progress {
+  width: 120px;
+  height: 120px;
   position: relative;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
+  margin: auto;
 }
+
 .circle-progress svg {
   transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
 }
+
 .circle-progress circle {
   fill: none;
   stroke-width: 10;
-  stroke-linecap: round;
 }
+
 .circle-progress .bg {
-  stroke: #2d3748;
+  stroke: #333;
 }
+
 .circle-progress .progress {
   stroke: #00c2ff;
-  stroke-dasharray: 440;
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 0.5s ease;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
 }
-.circle-progress .percent {
+
+.circle-progress .label {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -95,21 +78,4 @@ input:focus {
   font-size: 1.5rem;
   font-weight: bold;
   color: #00c2ff;
-}
-
-/* ترازبندی متن‌ها */
-h1, h2, h3, p, div {
-  text-align: center;
-}
-
-/* دکمه خروج */
-.logout-button {
-  margin-top: 2rem;
-  padding: 0.5rem 1rem;
-  background-color: #dc2626;
-  border-radius: 0.5rem;
-  transition: background-color 0.3s;
-}
-.logout-button:hover {
-  background-color: #b91c1c;
 }
