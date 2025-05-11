@@ -23,8 +23,9 @@ body {
   box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
   transition: transform 0.3s ease;
 }
+
 .login-background {
-  background-image: url('https://wallpapercave.com/wp/wp4923992.jpg');
+  background-image: url('https://cdn.pixabay.com/photo/2021/01/13/19/00/space-5913767_1280.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -32,14 +33,9 @@ body {
 }
 
 .dashboard-background {
-  background-image: url('https://wallpaperaccess.com/full/5651980.jpg');
+  background-image: url('https://cdn.pixabay.com/photo/2020/12/22/08/33/network-5843146_1280.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-
-
-.card:hover {
-  transform: translateY(-5px);
 }
