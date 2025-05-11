@@ -14,7 +14,7 @@ async function getUserNetworkInfo() {
 function renderLogin() {
   app.innerHTML = `
     <div class="flex items-center justify-center min-h-screen px-4">
-      <div class="login-box p-8 rounded-2xl shadow-2xl max-w-sm w-full">
+      <div class="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-sm w-full backdrop-blur-md bg-opacity-60">
         <h2 class="text-2xl font-bold text-center mb-6">ورود به حساب</h2>
         <input id="username" type="text" placeholder="نام کاربری"
           class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none" />
@@ -26,28 +26,29 @@ function renderLogin() {
   `;
 }
 
-
 function renderDashboard(networkInfo) {
-document.body.className = 'dashboard-background';
+  document.body.className = 'dashboard-background';
 
   app.innerHTML = `
-    <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
+    <div class="min-h-screen py-10 px-4 flex flex-col items-center space-y-8">
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
 
-      <!-- ردیف اول -->
-     <div class="card text-center">
-  <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
-  <div class="circle-progress">
-    <svg width="150" height="150">
-      <circle class="bg" cx="75" cy="75" r="70"></circle>
-      <circle class="progress" cx="75" cy="75" r="70"></circle>
-    </svg>
-    <div class="percent" id="credit-percent">85%</div>
-  </div>
-  <p class="mt-2">از حجم سرویس شما باقی‌مانده است.</p>
-</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
 
+        <!-- مانده اعتبار -->
+        <div class="card text-center">
+          <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
+          <div class="circle-progress">
+            <svg>
+              <circle class="bg" r="50" cx="60" cy="60" />
+              <circle class="progress" r="50" cx="60" cy="60" />
+            </svg>
+            <div class="label" id="credit-percent">0%</div>
+          </div>
+          <p class="mt-4 text-sm text-gray-300">از حجم سرویس شما باقی‌مانده است.</p>
+        </div>
 
+        <!-- اطلاعات شبکه -->
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
           <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span></div>
@@ -55,37 +56,43 @@ document.body.className = 'dashboard-background';
         </div>
       </div>
 
-      <!-- ردیف جدید: وضعیت امنیت اتصال -->
-<div class="w-full max-w-2xl">
-  <div class="card text-center flex items-center justify-center gap-4">
-    ${
-      window.location.protocol === "https:" 
-        ? `<span class="text-green-400 text-xl">🟢 اتصال شما امن است (HTTPS)</span>`
-        : `<span class="text-yellow-400 text-xl">🟡 اتصال امن نیست (HTTP)</span>`
-    }
-  </div>
-</div>
+      <!-- وضعیت امنیت اتصال -->
+      <div class="w-full max-w-2xl">
+        <div class="card text-center flex items-center justify-center gap-4">
+          ${
+            window.location.protocol === "https:" 
+              ? `<span class="text-green-400 text-xl">🟢 اتصال شما امن است (HTTPS)</span>`
+              : `<span class="text-yellow-400 text-xl">🟡 اتصال امن نیست (HTTP)</span>`
+          }
+        </div>
+      </div>
 
+      <!-- تست سرعت -->
+      <div class="w-full max-w-2xl">
+        <div class="card text-center">
+          <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
+          <div id="speed-result" class="mb-4 text-lg text-gray-300">برای شروع، دکمه زیر را بزنید.</div>
+          <button onclick="testSpeed()" class="py-2 px-6 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
+        </div>
+      </div>
 
-     <!-- تست سرعت و دکمه خروج -->
-<div class="w-full max-w-2xl flex flex-col items-center space-y-6">
-  <!-- کارت تست سرعت -->
-  <div class="card text-center w-full">
-    <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
-    <div id="speed-result" class="mb-4 text-lg text-gray-300">برای شروع، دکمه زیر را بزنید.</div>
-    <button onclick="testSpeed()" class="py-2 px-6 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
-  </div>
+      <button onclick="logout()" class="mt-8 py-2 px-4 bg-red-600 rounded hover:bg-red-700 transition">خروج</button>
+    </div>
+  `;
 
-  <!-- دکمه خروج -->
-  <button onclick="logout()" class="py-2 px-6 bg-red-600 rounded hover:bg-red-700 transition">
-    خروج
-  </button>
-</div>
+  updateCreditCircle(85); // نمایش مقدار اعتبار اولیه
+}
 
+function updateCreditCircle(percent) {
+  const circle = document.querySelector('.circle-progress .progress');
+  const radius = circle.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
 
-// فراخوانی داخل renderDashboard بعد از insert HTML:
-setTimeout(() => animateProgress(85), 300);
-
+  circle.style.strokeDasharray = `${circumference}`;
+  circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
+  
+  document.getElementById('credit-percent').innerText = `${percent}%`;
+}
 
 function handleLogin() {
   const user = document.getElementById('username').value;
@@ -117,18 +124,4 @@ function testSpeed() {
   }, 2000);
 }
 
-function updateCreditCircle(percent) {
-  const circle = document.querySelector('.circle-progress .progress');
-  const radius = circle.r.baseVal.value;
-  const circumference = 2 * Math.PI * radius;
-
-  circle.style.strokeDasharray = `${circumference}`;
-  circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
-  
-  document.getElementById('credit-percent').innerText = `${percent}%`;
-}
-
-renderLogin()
-updateCreditCircle(85); // عدد دلخواه
-
-
+renderLogin();
