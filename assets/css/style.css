@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Merriweather', serif; /* فونت رسمی‌تر */
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
 }
 
@@ -40,4 +41,57 @@ body {
   background-attachment: fixed;
 }
 
+.login-box {
+  background: rgba(255, 255, 255, 0.2); /* شفافیت بیشتر */
+  backdrop-filter: blur(15px); /* افکت بلور */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  width: 320px;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background-color: #45a049;
+}
+.login-background {
+  background-image: url('../../image/ne.jpg'); /* تصویر پس‌زمینه صفحه ورود */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.dashboard-background {
+  background-image: url('../../image/ne.jpg'); /* تصویر پس‌زمینه داشبورد */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
