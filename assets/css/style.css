@@ -3,10 +3,8 @@
 body {
   font-family: 'Vazirmatn', 'Orbitron', sans-serif;
   background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
-  color: white;
 }
 
-/* دکمه درخشان */
 .button-glow {
   background-color: #00c2ff;
   box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
@@ -17,18 +15,16 @@ body {
   box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
 }
 
-/* فرم و کارت‌ها */
 .card {
-  background-color: rgba(17, 24, 39, 0.7);
+  background-color: #111827cc;
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
-  backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
 }
 
-/* پس‌زمینه ورود */
 .login-background {
+  backdrop-filter: blur(10px);
   background-image: url('../../image/ne.jpg');
   background-size: cover;
   background-position: center;
@@ -36,7 +32,6 @@ body {
   background-attachment: fixed;
 }
 
-/* پس‌زمینه داشبورد */
 .dashboard-background {
   background-image: url('../../image/ne.jpg');
   background-size: cover;
@@ -45,11 +40,10 @@ body {
   background-attachment: fixed;
 }
 
-/* دایره پیشرفت */
 .circle-progress {
-  position: relative;
   width: 120px;
   height: 120px;
+  position: relative;
   margin: 0 auto;
 }
 .circle-progress svg {
@@ -60,19 +54,19 @@ body {
   stroke-width: 10;
 }
 .circle-progress .bg {
-  stroke: #2d3748;
+  stroke: #374151;
 }
 .circle-progress .progress {
   stroke: #00c2ff;
   stroke-linecap: round;
-  transition: stroke-dashoffset 1s ease-out;
+  transition: stroke-dashoffset 1s ease;
 }
-.circle-progress .percent-text {
+.circle-progress .text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
   font-weight: bold;
-  color: #00c2ff;
 }
+
