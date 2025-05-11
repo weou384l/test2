@@ -5,25 +5,16 @@ let loggedIn = false;
 async function getUserNetworkInfo() {
   const response = await fetch('https://ipinfo.io/json?token=8824fa830e1d01');
   const data = await response.json();
-  const networkInfo = {
+  return {
     ip: data.ip,
     isp: data.org
   };
-
-  // بررسی اینکه آیا IP مربوط به Cloudflare هست یا نه
-  if (networkInfo.isp.includes("Cloudflare")) {
-    networkInfo.isCloudflare = true; // علامت‌گذاری به عنوان Cloudflare
-  } else {
-    networkInfo.isCloudflare = false;
-  }
-
-  return networkInfo;
 }
 
 function renderLogin() {
   app.innerHTML = `
     <div class="flex items-center justify-center min-h-screen px-4">
-      <div class="bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-sm w-full">
+      <div class="bg-gray-900 bg-opacity-70 p-8 rounded-2xl shadow-2xl max-w-sm w-full backdrop-blur">
         <h2 class="text-2xl font-bold text-center mb-6">ورود به حساب</h2>
         <input id="username" type="text" placeholder="نام کاربری"
           class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none" />
@@ -38,43 +29,69 @@ function renderLogin() {
 function renderDashboard(networkInfo) {
   document.body.className = 'dashboard-background';
 
+  const isCloudflare = /cloudflare/i.test(networkInfo.isp);
+  const networkMessage = isCloudflare
+    ? `<p class="text-green-400 text-sm mt-2">شما اکنون در حال استفاده از سرویس ما می‌باشید.</p>`
+    : `<p class="text-yellow-400 text-sm mt-2">شما در حال استفاده از سرویس ما نمی‌باشید.</p>`;
+
   app.innerHTML = `
     <div class="min-h-screen p-6 flex flex-col items-center space-y-8">
       <h1 class="text-3xl font-bold">داشبورد کاربر</h1>
 
-      <!-- ردیف اول -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">مانده اعتبار</h2>
-          <svg class="circle-progress mx-auto mb-4" width="120" height="120">
-            <circle cx="60" cy="60" r="50" stroke="#333" stroke-width="10" fill="none" />
-            <circle class="progress" cx="60" cy="60" r="50" stroke="#00c2ff" stroke-width="10" fill="none" stroke-linecap="round" transform="rotate(-90 60 60)" />
-          </svg>
-          <div id="credit-percent" class="text-2xl font-bold text-cyan-400">85%</div>
-          <p class="text-gray-300">از حجم سرویس شما باقی‌مانده است.</p>
+          <div class="circle-progress">
+            <svg width="120" height="120">
+              <circle class="bg" cx="60" cy="60" r="50"/>
+              <circle class="progress" cx="60" cy="60" r="50"/>
+            </svg>
+            <span id="credit-percent">0%</span>
+          </div>
+          <p class="mt-2 text-sm">از حجم سرویس شما باقی‌مانده است.</p>
         </div>
 
         <div class="card text-center">
           <h2 class="text-xl font-bold mb-4">اطلاعات شبکه</h2>
           <div class="text-lg mb-2 text-gray-300">آی‌پی: <span class="text-cyan-400">${networkInfo.ip}</span></div>
           <div class="text-lg mb-2 text-gray-300">شرکت اینترنت: <span class="text-cyan-400">${networkInfo.isp}</span></div>
-          
-          <!-- اضافه کردن پیام Cloudflare یا غیر Cloudflare -->
-          ${networkInfo.isCloudflare ? 
-            `<div class="text-sm text-green-400 mt-2">شما اکنون در حال استفاده از سرویس Cloudflare می‌باشید.</div>`
-            : `<div class="text-sm text-orange-400 mt-2">شما در حال استفاده از سرویس ما نمی‌باشید.</div>`
+          ${networkMessage}
+        </div>
+      </div>
+
+      <div class="w-full max-w-2xl">
+        <div class="card text-center flex items-center justify-center gap-4">
+          ${
+            window.location.protocol === "https:" 
+              ? `<span class="text-green-400 text-xl">🟢 اتصال شما امن است (HTTPS)</span>`
+              : `<span class="text-yellow-400 text-xl">🟡 اتصال امن نیست (HTTP)</span>`
           }
         </div>
       </div>
 
-      <!-- سایر بخش‌های داشبورد ... -->
+      <div class="w-full max-w-2xl">
+        <div class="card text-center">
+          <h2 class="text-xl font-bold mb-4">تست سرعت اینترنت</h2>
+          <div id="speed-result" class="mb-4 text-lg text-gray-300">برای شروع، دکمه زیر را بزنید.</div>
+          <button onclick="testSpeed()" class="py-2 px-6 bg-green-600 rounded hover:bg-green-700 transition">شروع تست</button>
+        </div>
+      </div>
 
       <button onclick="logout()" class="mt-8 py-2 px-4 bg-red-600 rounded hover:bg-red-700 transition">خروج</button>
     </div>
   `;
 
-  // بروزرسانی دایره اعتبار
-  updateCreditCircle(85); // درصد مانده اعتبار
+  updateCreditCircle(85); // درصد دلخواه
+}
+
+function updateCreditCircle(percent) {
+  const circle = document.querySelector('.circle-progress .progress');
+  const radius = circle.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
+
+  circle.style.strokeDasharray = `${circumference}`;
+  circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
+  document.getElementById('credit-percent').innerText = `${percent}%`;
 }
 
 function handleLogin() {
@@ -94,15 +111,17 @@ function logout() {
   renderLogin();
 }
 
-function updateCreditCircle(percent) {
-  const circle = document.querySelector('.circle-progress .progress');
-  const radius = circle.r.baseVal.value;
-  const circumference = 2 * Math.PI * radius;
-
-  circle.style.strokeDasharray = `${circumference}`;
-  circle.style.strokeDashoffset = `${circumference * (1 - percent / 100)}`;
-
-  document.getElementById('credit-percent').innerText = `${percent}%`;
+function testSpeed() {
+  const result = document.getElementById('speed-result');
+  result.innerText = "در حال تست...";
+  setTimeout(() => {
+    const download = (Math.random() * 50 + 10).toFixed(2);
+    const upload = (Math.random() * 10 + 1).toFixed(2);
+    result.innerHTML = `
+      سرعت دانلود: <span class="text-cyan-400">${download} Mbps</span><br/>
+      سرعت آپلود: <span class="text-cyan-400">${upload} Mbps</span>
+    `;
+  }, 2000);
 }
 
 renderLogin();
