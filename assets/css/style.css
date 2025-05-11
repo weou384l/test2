@@ -1,61 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@font-face {
+  font-family: 'IRANSans';
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Sans/IRANSansWeb(FaNum).woff2') format('woff2');
+}
 
 body {
-  font-family: 'Vazirmatn', 'Orbitron', sans-serif;
-  background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
-  color: #f0f0f0;
-}
-
-.card {
-  background-color: rgba(17, 24, 39, 0.7); /* کمی شفاف برای پس‌زمینه */
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 0 10px rgba(0, 194, 255, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.button-glow {
-  background-color: #00c2ff;
-  box-shadow: 0 0 10px #00c2ff, 0 0 20px #00c2ff;
-  transition: all 0.3s ease-in-out;
-}
-
-.button-glow:hover {
-  background-color: #008ecc;
-  box-shadow: 0 0 15px #00c2ff, 0 0 30px #00c2ff;
-}
-
-.dashboard-background {
-  background-image: url('../../image/ne.jpg');
+  margin: 0;
+  font-family: 'IRANSans', sans-serif;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  color: #e2e8f0;
+}
+
+.login-background {
+  background-image: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85');
+}
+
+.dashboard-background {
+  background-image: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437b2');
+}
+
+.card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.button-glow {
+  background: linear-gradient(to right, #06b6d4, #3b82f6);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
 .circle-progress {
   position: relative;
   width: 120px;
   height: 120px;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .circle-progress svg {
   transform: rotate(-90deg);
 }
 
-.circle-progress .progress-bg {
-  stroke: #334155;
-  stroke-width: 10;
+.circle-progress circle {
   fill: none;
+  stroke-width: 10;
+}
+
+.circle-progress .bg {
+  stroke: #334155;
 }
 
 .circle-progress .progress {
-  stroke: #00c2ff;
-  stroke-width: 10;
-  fill: none;
-  stroke-linecap: round;
+  stroke: #06b6d4;
   transition: stroke-dashoffset 1s ease;
 }
 
@@ -65,6 +64,15 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
-  color: #00c2ff;
   font-weight: bold;
+  color: #06b6d4;
+}
+
+.flag-icon {
+  width: 24px;
+  height: 18px;
+  display: inline-block;
+  border-radius: 2px;
+  object-fit: cover;
+  margin-right: 6px;
 }
