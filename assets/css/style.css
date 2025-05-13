@@ -1,74 +1,104 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Roboto:wght@400;700&display=swap');
+@font-face {
+  font-family: IRANSans;
+  src: url('https://cdn.fontcdn.ir/Fonts/iransans/IRANSansWeb.woff2') format('woff2');
+}
 
 body {
+  font-family: 'IRANSans', 'Roboto', sans-serif;
   margin: 0;
-  font-family: 'Vazirmatn', 'Roboto', sans-serif;
+  padding: 0;
+}
+
+.page {
+  display: none;
+}
+
+#login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("../../image/ne.jpg") no-repeat center center fixed;
+  background-size: cover;
   color: #fff;
-  background-color: #0f172a;
+}
+
+.login-container {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  border-radius: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  color: #333;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+#dashboard-page {
+  display: block;
+  background: url("../../image/ne.jpg") no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  direction: rtl;
+  padding: 40px;
+  color: #fff;
 }
 
-.login-background {
-  background: linear-gradient(to right, #2c3e50, #4ca1af);
+header {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-.dashboard-background {
-  background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') no-repeat center center fixed;
-  background-size: cover;
-  backdrop-filter: blur(4px);
+.status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
 
-.card {
-  background-color: rgba(30, 41, 59, 0.7);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+.credit-box,
+.date-box {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.button-glow {
-  background-color: #00e6e6;
-  box-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6;
-}
-
-.circle-progress {
+.circle {
   position: relative;
   width: 120px;
   height: 120px;
-  margin: 0 auto 1rem;
+  margin: 0 auto;
 }
 
-.circle-progress svg {
-  transform: rotate(-90deg);
-}
-
-.circle-progress .progress-bg {
-  stroke: #334155;
-}
-
-.circle-progress .progress {
-  stroke: #06b6d4;
-  transition: stroke-dashoffset 1s ease;
-}
-
-#credit-percent {
+.circle-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  color: #06b6d4;
 }
 
-.speed-graph {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.flag {
-  width: 24px;
-  vertical-align: middle;
-  margin-left: 6px;
+.hidden {
+  display: none;
 }
