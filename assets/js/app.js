@@ -6,10 +6,7 @@ function login(event) {
   const password = document.getElementById("password").value;
 
   if (username === "admin" && password === "1234") {
-    document.getElementById("login-page").classList.add("hidden");
-    document.getElementById("dashboard-page").classList.remove("hidden");
-    showDate();
-    runCreditBar();
+    window.location.href = "dashboard.html"; // هدایت به صفحه داشبورد
   } else {
     alert("نام کاربری یا کلمه عبور اشتباه است!");
   }
@@ -40,5 +37,8 @@ function runCreditBar() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("login-form").addEventListener("submit", login);
+  if (window.location.pathname === "/dashboard.html") {
+    showDate();
+    runCreditBar();
+  }
 });
