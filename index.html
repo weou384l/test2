@@ -6,11 +6,14 @@
   <title>ورود به سایت</title>
 
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IRANSans&display=swap" rel="stylesheet" />
   <script src="assets/js/app.js" defer></script>
 </head>
 <body>
-  <!-- صفحه ورود -->
-  <div id="login-page" class="page">
+  <div class="login-page">
     <div class="login-container">
       <h2>ورود به داشبورد</h2>
       <form id="login-form" onsubmit="login(event)">
@@ -19,34 +22,6 @@
         <button type="submit">ورود</button>
       </form>
     </div>
-  </div>
-
-  <!-- داشبورد -->
-  <div id="dashboard-page" class="page hidden">
-    <header>
-      <h1>داشبورد</h1>
-    </header>
-    
-    <section class="status">
-      <div class="credit-box">
-        <h2>مانده اعتبار</h2>
-        <div class="circle">
-          <svg width="120" height="120">
-            <circle cx="60" cy="60" r="50" stroke="#ccc" stroke-width="10" fill="none"/>
-            <circle id="credit-bar" cx="60" cy="60" r="50" stroke="#4caf50" stroke-width="10" fill="none"
-              stroke-dasharray="314"
-              stroke-dashoffset="47"
-              transform="rotate(-90 60 60)"/>
-          </svg>
-          <div class="circle-text" id="credit-text">85%</div>
-        </div>
-      </div>
-
-      <div class="date-box">
-        <h2>تاریخ امروز</h2>
-        <div id="date-info">...</div>
-      </div>
-    </section>
   </div>
 </body>
 </html>
