@@ -1,55 +1,49 @@
-@font-face {
-  font-family: 'IRANSans';
-  src: url('https://cdn.fontcdn.ir/Font/Persian/Sans/IRANSansWeb(FaNum).woff2') format('woff2');
-}
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
 body {
   margin: 0;
-  font-family: 'IRANSans', sans-serif;
+  font-family: 'Vazirmatn', 'Roboto', sans-serif;
+  color: #fff;
+  background-color: #0f172a;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  color: #e2e8f0;
+  direction: rtl;
 }
 
 .login-background {
-  background-image: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85');
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
 }
 
 .dashboard-background {
-  background-image: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437b2');
+  background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') no-repeat center center fixed;
+  background-size: cover;
+  backdrop-filter: blur(4px);
 }
 
 .card {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
+  background-color: rgba(30, 41, 59, 0.7);
   border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
 .button-glow {
-  background: linear-gradient(to right, #06b6d4, #3b82f6);
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  background-color: #00e6e6;
+  box-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6;
 }
 
 .circle-progress {
   position: relative;
   width: 120px;
   height: 120px;
-  margin: auto;
+  margin: 0 auto 1rem;
 }
 
 .circle-progress svg {
   transform: rotate(-90deg);
 }
 
-.circle-progress circle {
-  fill: none;
-  stroke-width: 10;
-}
-
-.circle-progress .bg {
+.circle-progress .progress-bg {
   stroke: #334155;
 }
 
@@ -58,21 +52,23 @@ body {
   transition: stroke-dashoffset 1s ease;
 }
 
-.circle-progress .percent-text {
+#credit-percent {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: bold;
   color: #06b6d4;
 }
 
-.flag-icon {
+.speed-graph {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.flag {
   width: 24px;
-  height: 18px;
-  display: inline-block;
-  border-radius: 2px;
-  object-fit: cover;
-  margin-right: 6px;
+  vertical-align: middle;
+  margin-left: 6px;
 }
