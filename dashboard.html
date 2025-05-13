@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>داشبورد</title>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <div id="dashboard-page">
+    <header>
+      <h1>داشبورد</h1>
+    </header>
+    
+    <section class="status">
+      <div class="credit-box">
+        <h2>مانده اعتبار</h2>
+        <div class="circle">
+          <svg width="120" height="120">
+            <circle cx="60" cy="60" r="50" stroke="#ccc" stroke-width="10" fill="none"/>
+            <circle id="credit-bar" cx="60" cy="60" r="50" stroke="#4caf50" stroke-width="10" fill="none"
+              stroke-dasharray="314"
+              stroke-dashoffset="47"
+              transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="circle-text" id="credit-text">85%</div>
+        </div>
+      </div>
+
+      <div class="date-box">
+        <h2>تاریخ امروز</h2>
+        <div id="date-info">...</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
