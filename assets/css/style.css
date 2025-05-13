@@ -7,56 +7,68 @@ body {
   font-family: 'IRANSans', 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
-.page {
-  display: none;
-}
-
-#login-page {
+.login-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: url("../../image/ne.jpg") no-repeat center center fixed;
   background-size: cover;
-  color: #fff;
 }
 
 .login-container {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 40px;
-  border-radius: 10px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+}
+
+h2 {
+  font-size: 30px;
+  color: #fff;
+  font-family: 'IRANSans', sans-serif;
+  margin-bottom: 30px;
 }
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
   background-color: #fff;
   color: #333;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #3498db;
   border: none;
   color: white;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #2980b9;
 }
 
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 #dashboard-page {
-  display: block;
   background: url("../../image/ne.jpg") no-repeat center center fixed;
   background-size: cover;
   padding: 40px;
@@ -66,6 +78,7 @@ button:hover {
 header {
   text-align: center;
   margin-bottom: 30px;
+  font-size: 35px;
 }
 
 .status {
