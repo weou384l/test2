@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>ورود | داشبورد</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- فونت‌ها -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&family=Roboto&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; direction: rtl; }
@@ -91,26 +90,28 @@
       margin-left: 8px;
     }
 
-    .progress-circle {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: conic-gradient(#00cec9 calc(var(--percent) * 1%), rgba(255,255,255,0.1) 0%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 15px;
+    .progress-bar {
+      width: 100%;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 10px;
     }
 
-    .progress-circle span {
-      font-size: 22px;
+    .progress-bar-fill {
+      height: 14px;
+      background: linear-gradient(to right, #00cec9, #0984e3);
+      width: 0%;
+      transition: width 1s ease-in-out;
+    }
+
+    .credit-label {
+      font-size: 16px;
       font-weight: bold;
-      color: #00cec9;
     }
   </style>
 </head>
 <body>
-  <!-- فرم ورود -->
   <div id="login-section" class="login-container">
     <div class="login-box">
       <h2>ورود</h2>
@@ -120,15 +121,14 @@
     </div>
   </div>
 
-  <!-- داشبورد -->
   <div id="dashboard-section" class="dashboard hidden">
     <h1>داشبورد کاربر</h1>
 
     <div class="card">
-      <div class="progress-circle" id="credit-circle" style="--percent: 85;">
-        <span id="credit-text">85%</span>
+      <div class="credit-label">مانده اعتبار: <span id="credit-text">85%</span></div>
+      <div class="progress-bar">
+        <div id="credit-bar" class="progress-bar-fill"></div>
       </div>
-      <strong>مانده اعتبار</strong>
     </div>
 
     <div class="card">
@@ -145,7 +145,6 @@
     </div>
   </div>
 
-  <!-- اسکریپت -->
   <script>
     function login() {
       const user = document.getElementById("username").value.trim();
@@ -155,6 +154,7 @@
         document.getElementById("dashboard-section").classList.remove("hidden");
         checkHttps();
         getIP();
+        setCredit(85); // درصد دلخواه
       } else {
         alert("لطفاً نام کاربری و رمز را وارد کنید.");
       }
@@ -172,7 +172,7 @@
     }
 
     function getIP() {
-      fetch("https://ipinfo.io/json?token=8824fa830e1d01")
+      fetch("https://ipinfo.io/json?token=8a1e6b0e4d4f69")
         .then(res => res.json())
         .then(data => {
           const flagURL = `https://flagcdn.com/24x18/${data.country.toLowerCase()}.png`;
@@ -196,6 +196,13 @@
         .catch(() => {
           document.getElementById("speed-result").textContent = "❌ تست سرعت با خطا مواجه شد";
         });
+    }
+
+    function setCredit(percent) {
+      const fill = document.getElementById("credit-bar");
+      const label = document.getElementById("credit-text");
+      fill.style.width = percent + "%";
+      label.textContent = percent + "%";
     }
   </script>
 </body>
