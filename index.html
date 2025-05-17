@@ -133,7 +133,7 @@
     }
 
     function getIP() {
-      fetch("https://ipinfo.io/json?token=8a1e6b0e4d4f69")
+      fetch("https://ipinfo.io/json?token=8824fa830e1d01")
         .then(res => res.json())
         .then(data => {
           document.getElementById("ip-info").textContent = `${data.ip} (${data.country})`;
