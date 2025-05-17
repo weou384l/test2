@@ -2,33 +2,32 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>ورود | داشبورد مدرن</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="assets/css/style.css" rel="stylesheet">
+  <title>ورود | داشبورد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div class="login-container" id="login-section">
+  <div id="login-section" class="login-container">
     <div class="login-box">
-      <h2>ورود به سیستم</h2>
+      <h2>ورود</h2>
       <input type="text" id="username" placeholder="نام کاربری">
       <input type="password" id="password" placeholder="رمز عبور">
       <button onclick="login()">ورود</button>
     </div>
   </div>
 
-  <div class="dashboard hidden" id="dashboard-section">
+  <div id="dashboard-section" class="dashboard hidden">
     <h1>داشبورد کاربر</h1>
-    <div class="info-box">
-      <p id="https-status">در حال بررسی اتصال امن...</p>
-      <p id="ip-info">در حال دریافت اطلاعات آی‌پی...</p>
-    </div>
-    <div class="speed-test-box">
-      <button onclick="runSpeedTest()">تست سرعت اینترنت</button>
-      <p id="speed-result">در انتظار تست...</p>
+    <div class="card"><strong>وضعیت اتصال:</strong> <span id="https-status">در حال بررسی...</span></div>
+    <div class="card"><strong>آی‌پی شما:</strong> <span id="ip-info">در حال دریافت...</span></div>
+    <div class="card">
+      <button onclick="runSpeedTest()">تست سرعت</button>
+      <p id="speed-result">در انتظار شروع تست...</p>
     </div>
   </div>
 
   <script src="assets/js/app.js"></script>
 </body>
 </html>
+
