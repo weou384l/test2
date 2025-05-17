@@ -1,59 +1,90 @@
-function login() {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn&family=Roboto&display=swap');
 
-  if (username && password) {
-    document.getElementById("login-section").classList.add("hidden");
-    document.getElementById("dashboard-section").classList.remove("hidden");
-    checkHttps();
-    getIpInfo();
-  } else {
-    alert("نام کاربری و رمز عبور را وارد کنید.");
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  direction: rtl;
 }
 
-function checkHttps() {
-  const status = document.getElementById("https-status");
-  if (location.protocol === "https:") {
-    status.textContent = "🔒 اتصال امن (HTTPS)";
-    status.style.color = "lightgreen";
-  } else {
-    status.textContent = "⚠️ اتصال ناامن (HTTP)";
-    status.style.color = "orange";
-  }
+body {
+  font-family: 'Vazirmatn', 'Roboto', sans-serif;
+  background: linear-gradient(to top left, #1e1e2f, #3e3e5e);
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-function getIpInfo() {
-  fetch("https://ipinfo.io/json?token=8a1e6b0e4d4f69")
-    .then(response => {
-      if (!response.ok) throw new Error("IP fetch error");
-      return response.json();
-    })
-    .then(data => {
-      const info = `IP: ${data.ip} - ${data.city}, ${data.country}`;
-      document.getElementById("ip-info").textContent = info;
-    })
-    .catch(() => {
-      document.getElementById("ip-info").textContent = "❌ دریافت آی‌پی ممکن نشد.";
-    });
+.hidden {
+  display: none;
 }
 
-function runSpeedTest() {
-  const start = performance.now();
+.login-container, .dashboard {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
 
-  fetch("https://corsproxy.io/?https://speed.cloudflare.com/cdn-cgi/trace", { cache: "no-store" })
-    .then(response => {
-      if (!response.ok) throw new Error("network error");
-      return response.text();
-    })
-    .then(() => {
-      const end = performance.now();
-      const duration = (end - start) / 1000;
-      const fakeSpeed = (Math.random() * (90 - 20) + 20).toFixed(2);
-      document.getElementById("speed-result").textContent =
-        `سرعت تقریبی: ${fakeSpeed} مگابیت بر ثانیه (زمان پاسخ: ${duration.toFixed(1)} ثانیه)`;
-    })
-    .catch(() => {
-      document.getElementById("speed-result").textContent = "❌ تست سرعت با خطا مواجه شد.";
-    });
+.login-box {
+  background: rgba(255,255,255,0.07);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00b894;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #019875;
+}
+
+.dashboard h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  text-align: center;
+}
+
+.card button {
+  padding: 10px 20px;
+  background: #0984e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
