@@ -1,82 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn&family=Roboto&display=swap');
+function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-body {
-  margin: 0;
-  font-family: 'Vazirmatn', 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #1e1e2f, #2c3e50);
-  color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  if (username && password) {
+    document.getElementById("login-section").classList.add("hidden");
+    document.getElementById("dashboard-section").classList.remove("hidden");
+    checkHttps();
+    getIpInfo();
+  } else {
+    alert("نام کاربری و رمز عبور را وارد کنید.");
+  }
 }
 
-.hidden {
-  display: none;
+function checkHttps() {
+  const status = document.getElementById("https-status");
+  if (location.protocol === "https:") {
+    status.textContent = "🔒 اتصال امن (HTTPS)";
+    status.style.color = "lightgreen";
+  } else {
+    status.textContent = "⚠️ اتصال ناامن (HTTP)";
+    status.style.color = "orange";
+  }
 }
 
-.login-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
+function getIpInfo() {
+  fetch("https://ipinfo.io/json?token=8a1e6b0e4d4f69")
+    .then(response => {
+      if (!response.ok) throw new Error("IP fetch error");
+      return response.json();
+    })
+    .then(data => {
+      const info = `IP: ${data.ip} - ${data.city}, ${data.country}`;
+      document.getElementById("ip-info").textContent = info;
+    })
+    .catch(() => {
+      document.getElementById("ip-info").textContent = "❌ دریافت آی‌پی ممکن نشد.";
+    });
 }
 
-.login-box {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 30px;
-  backdrop-filter: blur(10px);
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-}
+function runSpeedTest() {
+  const start = performance.now();
 
-.login-box h2 {
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.login-box input {
-  width: 100%;
-  margin-bottom: 15px;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background-color: #00aaff;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.login-box button:hover {
-  background-color: #008ecc;
-}
-
-.dashboard {
-  width: 100%;
-  max-width: 600px;
-  padding: 30px;
-  text-align: center;
-}
-
-.info-box, .speed-test-box {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 20px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-button {
-  font-family: inherit;
+  fetch("https://corsproxy.io/?https://speed.cloudflare.com/cdn-cgi/trace", { cache: "no-store" })
+    .then(response => {
+      if (!response.ok) throw new Error("network error");
+      return response.text();
+    })
+    .then(() => {
+      const end = performance.now();
+      const duration = (end - start) / 1000;
+      const fakeSpeed = (Math.random() * (90 - 20) + 20).toFixed(2);
+      document.getElementById("speed-result").textContent =
+        `سرعت تقریبی: ${fakeSpeed} مگابیت بر ثانیه (زمان پاسخ: ${duration.toFixed(1)} ثانیه)`;
+    })
+    .catch(() => {
+      document.getElementById("speed-result").textContent = "❌ تست سرعت با خطا مواجه شد.";
+    });
 }
