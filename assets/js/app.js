@@ -8,44 +8,48 @@ function login() {
     checkHttps();
     getIpInfo();
   } else {
-    alert("لطفاً نام کاربری و رمز عبور را وارد کنید.");
+    alert("نام کاربری و رمز عبور الزامیست.");
   }
 }
 
 function checkHttps() {
   const status = document.getElementById("https-status");
   if (location.protocol === "https:") {
-    status.textContent = "اتصال شما امن است (HTTPS)";
-    status.style.color = "#0f0";
+    status.textContent = "🔒 اتصال امن (HTTPS)";
+    status.style.color = "lightgreen";
   } else {
-    status.textContent = "اتصال شما امن نیست (HTTP)";
-    status.style.color = "#f00";
+    status.textContent = "⚠️ اتصال ناامن (HTTP)";
+    status.style.color = "orange";
   }
 }
 
 function getIpInfo() {
-  fetch("https://ipinfo.io/json?token=8824fa830e1d01")
+  fetch("https://ipinfo.io/json?token=YOUR_TOKEN_HERE")
     .then(response => response.json())
     .then(data => {
-      const info = `${data.ip} - ${data.city}, ${data.country}`;
+      const info = `IP: ${data.ip} - ${data.city}, ${data.country}`;
       document.getElementById("ip-info").textContent = info;
     })
     .catch(() => {
-      document.getElementById("ip-info").textContent = "خطا در دریافت اطلاعات IP";
+      document.getElementById("ip-info").textContent = "خطا در دریافت آی‌پی.";
     });
 }
 
 function runSpeedTest() {
-  const startTime = performance.now();
-  fetch("https://via.placeholder.com/500x500.png")
-    .then(() => {
-      const endTime = performance.now();
-      const duration = (endTime - startTime) / 1000; // seconds
-      const sizeMB = 0.25; // MB (تقریبی برای placeholder)
+  const url = "https://speed.hetzner.de/100MB.bin"; // تست واقعی با فایل بزرگ
+  const start = new Date().getTime();
+
+  fetch(url, { method: "GET", cache: "no-store" })
+    .then(response => response.blob())
+    .then(blob => {
+      const end = new Date().getTime();
+      const duration = (end - start) / 1000; // زمان بر حسب ثانیه
+      const sizeMB = blob.size / (1024 * 1024); // مگابایت
       const speedMbps = ((sizeMB * 8) / duration).toFixed(2);
-      document.getElementById("speed-result").textContent = `سرعت تقریبی: ${speedMbps} مگابیت بر ثانیه`;
+      document.getElementById("speed-result").textContent =
+        `سرعت دانلود: ${speedMbps} مگابیت بر ثانیه`;
     })
     .catch(() => {
-      document.getElementById("speed-result").textContent = "خطا در انجام تست سرعت";
+      document.getElementById("speed-result").textContent = "خطا در تست سرعت.";
     });
 }
