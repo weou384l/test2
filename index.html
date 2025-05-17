@@ -3,25 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ورود به سایت</title>
-
+  <title>ورود به داشبورد</title>
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=IRANSans&display=swap" rel="stylesheet" />
-  <script src="assets/js/app.js" defer></script>
 </head>
 <body>
-  <div class="login-page">
-    <div class="login-container">
-      <h2>ورود به داشبورد</h2>
-      <form id="login-form" onsubmit="login(event)">
-        <input type="text" id="username" placeholder="نام کاربری" required />
-        <input type="password" id="password" placeholder="کلمه عبور" required />
-        <button type="submit">ورود</button>
-      </form>
-    </div>
+  <div class="login-container" id="login-section">
+    <h2>ورود به حساب</h2>
+    <input type="text" id="username" placeholder="نام کاربری" />
+    <input type="password" id="password" placeholder="رمز عبور" />
+    <button onclick="login()">ورود</button>
   </div>
+
+  <div class="dashboard hidden" id="dashboard-section">
+    <header>
+      <h1>داشبورد کاربر</h1>
+      <span id="https-status">در حال بررسی HTTPS...</span>
+    </header>
+
+    <section class="info-boxes">
+      <div class="box">
+        <h3>مانده اعتبار</h3>
+        <div class="circle">
+          <span id="credit">85%</span>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>آی‌پی شما</h3>
+        <p id="ip-info">در حال دریافت...</p>
+      </div>
+
+      <div class="box">
+        <h3>تست سرعت</h3>
+        <button onclick="runSpeedTest()">شروع تست</button>
+        <p id="speed-result">هنوز تستی انجام نشده</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
