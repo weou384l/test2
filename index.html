@@ -109,6 +109,20 @@
       font-size: 16px;
       font-weight: bold;
     }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .neon-green {
+      color: #39ff14;
+      font-weight: bold;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;
+    }
   </style>
 </head>
 <body>
@@ -132,7 +146,10 @@
     </div>
 
     <div class="card">
-      <strong>وضعیت اتصال:</strong> <span id="https-status">در حال بررسی...</span>
+      <div class="status-row">
+        <span><strong>وضعیت اتصال:</strong> <span id="https-status">در حال بررسی...</span></span>
+        <span class="neon-green">سرویس شما فعال می‌باشد</span>
+      </div>
     </div>
 
     <div class="card">
@@ -172,7 +189,7 @@
     }
 
     function getIP() {
-      fetch("https://ipinfo.io/json?token=8a1e6b0e4d4f69")
+      fetch("https://ipinfo.io/json?token=8824fa830e1d01")
         .then(res => res.json())
         .then(data => {
           const flagURL = `https://flagcdn.com/24x18/${data.country.toLowerCase()}.png`;
