@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ورود</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>ورود | داشبورد مدرن</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="login-container" id="login-section">
-    <h2>ورود به حساب</h2>
-    <input type="text" id="username" placeholder="نام کاربری" />
-    <input type="password" id="password" placeholder="رمز عبور" />
-    <button onclick="login()">ورود</button>
+    <div class="login-box">
+      <h2>ورود به سیستم</h2>
+      <input type="text" id="username" placeholder="نام کاربری">
+      <input type="password" id="password" placeholder="رمز عبور">
+      <button onclick="login()">ورود</button>
+    </div>
   </div>
 
   <div class="dashboard hidden" id="dashboard-section">
-    <header>
-      <h1>داشبورد کاربر</h1>
-      <span id="https-status"></span>
-    </header>
-
-    <section class="info-boxes">
-      <div class="box">
-        <h3>مانده اعتبار</h3>
-        <div class="circle">
-          <span id="credit">85%</span>
-        </div>
-      </div>
-
-      <div class="box">
-        <h3>آی‌پی شما</h3>
-        <p id="ip-info">در حال دریافت...</p>
-      </div>
-
-      <div class="box">
-        <h3>تست سرعت</h3>
-        <button onclick="runSpeedTest()">شروع تست</button>
-        <p id="speed-result">هنوز تستی انجام نشده</p>
-      </div>
-    </section>
+    <h1>داشبورد کاربر</h1>
+    <div class="info-box">
+      <p id="https-status">در حال بررسی اتصال امن...</p>
+      <p id="ip-info">در حال دریافت اطلاعات آی‌پی...</p>
+    </div>
+    <div class="speed-test-box">
+      <button onclick="runSpeedTest()">تست سرعت اینترنت</button>
+      <p id="speed-result">در انتظار تست...</p>
+    </div>
   </div>
 
   <script src="assets/js/app.js"></script>
