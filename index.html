@@ -22,7 +22,7 @@
 
     .login-container, .dashboard {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
     }
 
     .login-box {
@@ -82,6 +82,31 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
+    .ip-flag {
+      vertical-align: middle;
+      width: 24px;
+      height: 16px;
+      border-radius: 2px;
+      margin-left: 8px;
+    }
+
+    .progress-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#00cec9 calc(var(--percent) * 1%), rgba(255,255,255,0.1) 0%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+    }
+
+    .progress-circle span {
+      font-size: 22px;
+      font-weight: bold;
+      color: #00cec9;
+    }
   </style>
 </head>
 <body>
@@ -98,8 +123,22 @@
   <!-- داشبورد -->
   <div id="dashboard-section" class="dashboard hidden">
     <h1>داشبورد کاربر</h1>
-    <div class="card"><strong>وضعیت اتصال:</strong> <span id="https-status">در حال بررسی...</span></div>
-    <div class="card"><strong>آی‌پی شما:</strong> <span id="ip-info">در حال دریافت...</span></div>
+
+    <div class="card">
+      <div class="progress-circle" id="credit-circle" style="--percent: 85;">
+        <span id="credit-text">85%</span>
+      </div>
+      <strong>مانده اعتبار</strong>
+    </div>
+
+    <div class="card">
+      <strong>وضعیت اتصال:</strong> <span id="https-status">در حال بررسی...</span>
+    </div>
+
+    <div class="card">
+      <strong>آی‌پی شما:</strong> <span id="ip-info">در حال دریافت...</span>
+    </div>
+
     <div class="card">
       <button onclick="runSpeedTest()">تست سرعت</button>
       <p id="speed-result">در انتظار شروع تست...</p>
@@ -133,10 +172,11 @@
     }
 
     function getIP() {
-      fetch("https://ipinfo.io/json?token=8824fa830e1d01")
+      fetch("https://ipinfo.io/json?token=8a1e6b0e4d4f69")
         .then(res => res.json())
         .then(data => {
-          document.getElementById("ip-info").textContent = `${data.ip} (${data.country})`;
+          const flagURL = `https://flagcdn.com/24x18/${data.country.toLowerCase()}.png`;
+          document.getElementById("ip-info").innerHTML = `<img class="ip-flag" src="${flagURL}" alt="${data.country}"> ${data.ip} (${data.country})`;
         })
         .catch(() => {
           document.getElementById("ip-info").textContent = "❌ خطا در دریافت آی‌پی";
