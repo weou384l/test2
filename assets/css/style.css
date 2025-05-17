@@ -1,117 +1,85 @@
-@font-face {
-  font-family: IRANSans;
-  src: url('https://cdn.fontcdn.ir/Fonts/iransans/IRANSansWeb.woff2') format('woff2');
-}
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
 
 body {
-  font-family: 'IRANSans', 'Roboto', sans-serif;
   margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-.login-page {
+  font-family: 'Vazirmatn', 'Roboto', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url("../../image/ne.jpg") no-repeat center center fixed;
-  background-size: cover;
-}
-
-.login-container {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 1s ease-in-out;
-}
-
-h2 {
-  font-size: 30px;
-  color: #fff;
-  font-family: 'IRANSans', sans-serif;
-  margin-bottom: 30px;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-  background-color: #fff;
-  color: #333;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #3498db;
-  border: none;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #2980b9;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-#dashboard-page {
-  background: url("../../image/ne.jpg") no-repeat center center fixed;
-  background-size: cover;
-  padding: 40px;
-  color: #fff;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 35px;
-}
-
-.status {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.credit-box,
-.date-box {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  padding: 20px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.circle {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
-}
-
-.circle-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
-  font-weight: bold;
+  direction: rtl;
 }
 
 .hidden {
   display: none;
+}
+
+.login-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.login-container input {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+}
+
+.login-container button {
+  padding: 0.75rem 2rem;
+  border: none;
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dashboard {
+  width: 90%;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.info-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 10px #00000066;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: conic-gradient(#00c6ff 0% 85%, #444 85% 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
 }
