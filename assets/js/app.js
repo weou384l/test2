@@ -24,7 +24,7 @@ function checkHttps() {
 }
 
 function getIpInfo() {
-  fetch("https://ipinfo.io/json?token=YOUR_TOKEN_HERE")
+  fetch("https://ipinfo.io/json?token=8824fa830e1d01")
     .then(response => response.json())
     .then(data => {
       const info = `${data.ip} - ${data.city}, ${data.country}`;
