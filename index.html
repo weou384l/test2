@@ -2,220 +2,184 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>Speed+</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
+  <title>ورود به داشبورد</title>
   <style>
-    @font-face {
-      font-family: 'IRANSans';
-      src: url('https://cdn.fontcdn.ir/Font/Persian/IRANSans/IRANSans.woff') format('woff');
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Orbitron:wght@500&display=swap');
 
     * {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      font-family: 'IRANSans', 'Vazirmatn', sans-serif;
+      font-family: 'Vazirmatn', sans-serif;
     }
 
     body {
-      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-      height: 100vh;
-      color: #fff;
-    }
-
-    .centered-box {
-      max-width: 340px;
-      margin: 100px auto;
-      padding: 30px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px #00ffcc55;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #00ffc8;
-      text-shadow: 0 0 5px #00ffc8;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-
-    input {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    button {
-      background: #00ffc8;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #00e6b8;
-    }
-
-    #dashboard {
-      display: none;
-      padding: 20px;
-      max-width: 800px;
-      margin: 30px auto;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 0 15px #00ffc855;
-      backdrop-filter: blur(8px);
-    }
-
-    .status-neon {
-      color: #00ffcc;
-      text-shadow: 0 0 5px #00ffcc;
-      font-weight: bold;
-    }
-
-    .credit-bar {
-      height: 20px;
-      background: #444;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .credit-bar-inner {
-      height: 100%;
-      width: 80%;
-      background: linear-gradient(90deg, #00ffc8, #00e6b8);
-    }
-
-    .info-line {
+      background: url('https://images.unsplash.com/photo-1523966211575-eb4a01e7dd53') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(5px);
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 14px;
+      justify-content: center;
     }
 
-    .info-line img {
+    .login-container, .dashboard {
+      background: rgba(0,0,0,0.5);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,255,0,0.4);
+      width: 350px;
+      color: #fff;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .login-container button {
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.8rem;
+      background: #00ff99;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .hidden { display: none; }
+
+    .section {
+      margin-bottom: 1.5rem;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+
+    .section h3 {
+      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      color: #0f0;
+    }
+
+    .secure-status {
+      font-size: 0.9rem;
+      color: #0f0;
+      text-shadow: 0 0 10px #0f0;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    #creditBox {
+      width: 100%;
+      background: linear-gradient(to right, #0f0 80%, #444 20%);
+      padding: 0.7rem;
+      border-radius: 0.5rem;
+      color: #000;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    #speedResult, #ipInfo, #cloudflareStatus {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .flag {
       width: 24px;
-      height: 16px;
-      object-fit: cover;
-      border-radius: 3px;
-    }
-
-    .error-msg {
-      color: #f44336;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .speed-test-result {
-      margin-top: 10px;
-      font-size: 15px;
+      height: 18px;
+      vertical-align: middle;
+      margin-left: 5px;
     }
   </style>
 </head>
 <body>
-
-  <div class="centered-box" id="login-box">
-    <h2>ورود</h2>
-    <input type="text" id="username" placeholder="نام کاربری" />
-    <input type="password" id="password" placeholder="رمز عبور" />
-    <button onclick="handleLogin()">ورود</button>
-    <div class="error-msg" id="login-error"></div>
+  <div class="login-container" id="loginForm">
+    <h2 style="text-align:center;">ورود به سامانه</h2>
+    <input type="text" id="username" placeholder="نام کاربری">
+    <input type="password" id="password" placeholder="رمز عبور">
+    <button onclick="login()">ورود</button>
   </div>
 
-  <div id="dashboard">
-    <div class="card">
-      <div class="info-line">
-        اتصال امن: <span class="status-neon">فعال</span>
-        <span style="margin-right: auto;" class="status-neon">سرویس شما فعال می‌باشد</span>
-      </div>
+  <div class="dashboard hidden" id="dashboard">
+    <div class="section">
+      <h3>اتصال امن: <span class="secure-status">فعال</span></h3>
+      <div class="secure-status">سرویس شما فعال می‌باشد</div>
     </div>
 
-    <div class="card">
-      <h3>اطلاعات شبکه</h3>
-      <div class="info-line" id="ip-display">در حال دریافت اطلاعات IP...</div>
-      <div id="cf-status" style="margin-top: 10px;"></div>
+    <div class="section" id="ipInfoBox">
+      <h3>اطلاعات IP:</h3>
+      <div id="ipInfo">در حال دریافت...</div>
+      <div id="cloudflareStatus"></div>
     </div>
 
-    <div class="card">
-      <h3>مانده اعتبار</h3>
-      <div class="credit-bar"><div class="credit-bar-inner"></div></div>
-      <div>۸۰٪ باقی مانده</div>
+    <div class="section">
+      <h3>مانده اعتبار:</h3>
+      <div id="creditBox">۸۰٪ اعتبار باقی‌مانده</div>
     </div>
 
-    <div class="card">
-      <h3>تست سرعت</h3>
-      <button onclick="testSpeed()">شروع تست</button>
-      <div class="speed-test-result" id="speed-result"></div>
+    <div class="section">
+      <h3>تست سرعت اینترنت:</h3>
+      <button onclick="runSpeedTest()">شروع تست</button>
+      <div id="speedResult"></div>
     </div>
   </div>
 
   <script>
-    const IPINFO_TOKEN = "8824fa830e1d01";
-
-    function handleLogin() {
-      const user = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      const error = document.getElementById("login-error");
-
-      if (user === "admin" && pass === "1234") {
-        document.getElementById("login-box").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if(user === 'admin' && pass === '1234') {
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
         loadIPInfo();
       } else {
-        error.textContent = "نام کاربری یا رمز عبور اشتباه است.";
+        alert('نام کاربری یا رمز عبور اشتباه است');
       }
     }
 
+    function runSpeedTest() {
+      const startTime = new Date().getTime();
+      const image = new Image();
+      const imageSizeBytes = 1048576; // 1MB
+
+      image.onload = function () {
+        const endTime = new Date().getTime();
+        const duration = (endTime - startTime) / 1000;
+        const bitsLoaded = imageSizeBytes * 8;
+        const speedMbps = (bitsLoaded / duration / 1024 / 1024).toFixed(2);
+        document.getElementById("speedResult").innerText = `سرعت اینترنت: ${speedMbps} Mbps`;
+      };
+
+      image.onerror = function () {
+        document.getElementById("speedResult").innerText = "خطا در تست سرعت. دوباره تلاش کنید.";
+      };
+
+      image.src = "https://speed.hetzner.de/1MB.bin?nocache=" + Math.random();
+    }
+
     function loadIPInfo() {
-      fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`)
-        .then(res => res.json())
+      fetch("https://ipinfo.io/json?token=8824fa830e1d01")
+        .then(response => response.json())
         .then(data => {
-          const ip = data.ip || "---";
-          const country = data.country || "IR";
-          const flag = `https://flagcdn.com/24x18/${country.toLowerCase()}.png`;
-          const org = (data.org || "").toLowerCase();
-
-          document.getElementById("ip-display").innerHTML = `<img src="${flag}"> ${ip}`;
-
-          if (org.includes("cloudflare")) {
-            document.getElementById("cf-status").innerHTML = `<span class="status-neon">شما در حال استفاده از سرویس می‌باشید</span>`;
+          let flag = data.country ? `<img src="https://flagcdn.com/24x18/${data.country.toLowerCase()}.png" class="flag">` : `<img src="https://flagcdn.com/24x18/ir.png" class="flag">`;
+          document.getElementById('ipInfo').innerHTML = flag + (data.ip || "ایران");
+          if(data.org && data.org.toLowerCase().includes("cloudflare")) {
+            document.getElementById("cloudflareStatus").innerText = "شما در حال استفاده از سرویس می‌باشید";
           } else {
-            document.getElementById("cf-status").innerHTML = `<span style="color: #ff9800;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
+            document.getElementById("cloudflareStatus").innerText = "شما در حال استفاده از سرویس نمی‌باشید";
           }
         })
         .catch(() => {
-          document.getElementById("ip-display").innerHTML = `<img src="https://flagcdn.com/24x18/ir.png"> ایران`;
-          document.getElementById("cf-status").innerHTML = `<span style="color: #ff9800;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
-        });
-    }
-
-    function testSpeed() {
-      const start = performance.now();
-      fetch("https://speed.hetzner.de/100MB.bin", { method: "GET", cache: "no-store" })
-        .then(() => {
-          const end = performance.now();
-          const time = (end - start) / 1000;
-          const speed = (100 / time).toFixed(2);
-          document.getElementById("speed-result").innerText = `سرعت شما: ${speed} Mbps`;
-        })
-        .catch(() => {
-          document.getElementById("speed-result").innerText = "خطا در تست سرعت";
+          document.getElementById('ipInfo').innerHTML = `<img src="https://flagcdn.com/24x18/ir.png" class="flag">ایران`;
+          document.getElementById("cloudflareStatus").innerText = "شما در حال استفاده از سرویس نمی‌باشید";
         });
     }
   </script>
