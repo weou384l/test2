@@ -205,19 +205,26 @@
         });
     }
 
-    function testSpeed() {
-      const start = performance.now();
-      fetch("https://speed.hetzner.de/100MB.bin", { method: "GET", cache: "no-store" })
-        .then(() => {
-          const end = performance.now();
-          const time = (end - start) / 1000;
-          const speed = (100 / time).toFixed(2);
-          document.getElementById("speed-result").innerText = `سرعت شما: ${speed} Mbps`;
-        })
-        .catch(() => {
-          document.getElementById("speed-result").innerText = "خطا در تست سرعت";
-        });
-    }
+function runSpeedTest() {
+  const startTime = new Date().getTime();
+  const image = new Image();
+  const imageSizeBytes = 1048576; // 1MB
+
+  image.onload = function () {
+    const endTime = new Date().getTime();
+    const duration = (endTime - startTime) / 1000; // seconds
+    const bitsLoaded = imageSizeBytes * 8;
+    const speedMbps = (bitsLoaded / duration / 1024 / 1024).toFixed(2);
+    document.getElementById("speedResult").innerText = `سرعت اینترنت: ${speedMbps} Mbps`;
+  };
+
+  image.onerror = function () {
+    document.getElementById("speedResult").innerText = "خطا در تست سرعت. لطفاً دوباره تلاش کنید.";
+  };
+
+  image.src = "https://speed.hetzner.de/1MB.bin?nocache=" + Math.random();
+}
+
   </script>
 </body>
 </html>
