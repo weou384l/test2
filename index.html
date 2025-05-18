@@ -1,212 +1,207 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>ورود به سامانه</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ورود | داشبورد کاربر</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Roboto:wght@400;700&display=swap');
+    @font-face {
+      font-family: 'IRANSans';
+      src: url('https://cdn.fontcdn.ir/Font/Persian/IRANSans/IRANSans.woff') format('woff');
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'IRANSans', 'Poppins', sans-serif;
+    }
 
     body {
-      margin: 0;
-      font-family: 'Vazirmatn', 'Roboto', sans-serif;
-      background: url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background: url('https://images.unsplash.com/photo-1522199778941-4be1b180ba00?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
     }
 
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
     }
 
     .login-box {
-      background: rgba(0, 0, 0, 0.6);
+      width: 300px;
       padding: 30px;
-      border-radius: 16px;
-      width: 320px;
-      text-align: center;
+      margin: 100px auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
     }
 
     .login-box h2 {
+      text-align: center;
       margin-bottom: 20px;
-      font-size: 24px;
     }
 
     .login-box input {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
+      margin: 10px 0;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
     }
 
     .login-box button {
-      padding: 10px 20px;
+      width: 100%;
+      padding: 10px;
+      background: #00e676;
+      color: #000;
       border: none;
-      background-color: #00cc66;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .dashboard {
-      display: none;
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 16px;
-    }
-
-    .circular-chart {
-      display: block;
-      margin: 30px auto;
-      max-width: 120px;
-    }
-
-    .circle-bg {
-      fill: none;
-      stroke: #eee;
-      stroke-width: 3.8;
-    }
-
-    .circle-progress {
-      fill: none;
-      stroke: #00cc66;
-      stroke-width: 3.8;
-      stroke-linecap: round;
-      animation: progress 1s ease-out forwards;
-    }
-
-    .percentage {
-      fill: white;
-      font-size: 0.5em;
-      text-anchor: middle;
-    }
-
-    @keyframes progress {
-      0% {
-        stroke-dasharray: 0 100;
-      }
-      100% {
-        stroke-dasharray: 80 100;
-      }
-    }
-
-    .status-box {
-      margin-top: 20px;
-      font-size: 18px;
-    }
-
-    .neon {
+      border-radius: 5px;
       font-weight: bold;
-      color: #39ff14;
-      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;
+      cursor: pointer;
     }
 
-    .ip-info {
-      margin-top: 20px;
-      font-size: 18px;
+    #dashboard {
+      display: none;
+      padding: 30px;
     }
 
-    img.flag {
+    .section {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .section h3 {
+      margin-bottom: 10px;
+    }
+
+    .info-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-line img {
       width: 24px;
-      vertical-align: middle;
-      margin-left: 8px;
-      border-radius: 4px;
+      height: 16px;
+      border-radius: 2px;
+      object-fit: cover;
     }
 
-    .speed-result {
-      margin-top: 20px;
+    .status {
+      color: #00ff90;
+      text-shadow: 0 0 5px #00ff90;
+      font-weight: bold;
+    }
+
+    .credit-bar {
+      height: 20px;
+      background: #444;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .credit-bar-inner {
+      height: 100%;
+      width: 80%;
+      background: linear-gradient(90deg, #00e676, #00c853);
+    }
+
+    .speed-test-result {
+      font-size: 20px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="login-box" id="loginForm">
-      <h2>ورود به سامانه</h2>
-      <input type="text" id="username" placeholder="نام کاربری">
-      <input type="password" id="password" placeholder="رمز عبور">
-      <button onclick="login()">ورود</button>
+  <div class="overlay"></div>
+
+  <div class="login-box" id="login">
+    <h2>ورود به پنل</h2>
+    <input type="text" id="username" placeholder="نام کاربری" />
+    <input type="password" id="password" placeholder="رمز عبور" />
+    <button onclick="login()">ورود</button>
+  </div>
+
+  <div id="dashboard">
+    <div class="section">
+      <div class="info-line">
+        <span>اتصال امن (HTTPS):</span>
+        <span class="status">فعال</span>
+        <span class="status" style="margin-right: auto;">سرویس شما فعال می‌باشد</span>
+      </div>
     </div>
 
-    <div class="dashboard" id="dashboard">
-      <h2>داشبورد کاربر</h2>
+    <div class="section" id="ip-info">
+      <h3>اطلاعات شبکه</h3>
+      <div class="info-line" id="ip-display">در حال دریافت IP...</div>
+      <div id="cf-status" style="margin-top:10px;"></div>
+    </div>
 
-      <svg viewBox="0 0 36 36" class="circular-chart">
-        <path class="circle-bg"
-              d="M18 2.0845
-                 a 15.9155 15.9155 0 0 1 0 31.831
-                 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-        <path class="circle-progress"
-              stroke-dasharray="80, 100"
-              d="M18 2.0845
-                 a 15.9155 15.9155 0 0 1 0 31.831
-                 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-        <text x="18" y="20.35" class="percentage">80%</text>
-      </svg>
+    <div class="section">
+      <h3>مانده اعتبار</h3>
+      <div class="credit-bar"><div class="credit-bar-inner"></div></div>
+      <div>80٪ باقی مانده</div>
+    </div>
 
-      <div class="status-box">
-        اتصال امن: <span class="neon">فعال</span> |
-        <span class="neon">سرویس شما فعال می‌باشد</span>
-      </div>
-
-      <div class="ip-info" id="ipDisplay">در حال دریافت اطلاعات IP...</div>
-
-      <div class="speed-result">
-        <button onclick="testSpeed()">تست سرعت اینترنت</button>
-        <div id="speedOutput"></div>
-      </div>
+    <div class="section">
+      <h3>تست سرعت</h3>
+      <button onclick="testSpeed()">شروع تست</button>
+      <div class="speed-test-result" id="speed-result"></div>
     </div>
   </div>
 
   <script>
+    const IPINFO_TOKEN = "8824fa830e1d01";
+
     function login() {
-      document.getElementById('loginForm').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById("login").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
       loadIPInfo();
     }
 
     function loadIPInfo() {
-      fetch('https://ipinfo.io/json?token=8824fa830e1d01')
-        .then(res => res.json())
+      fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`)
+        .then(response => response.json())
         .then(data => {
-          const country = data.country || "IR";
-          const flagUrl = `https://flagsapi.com/${country}/flat/24.png`;
-          const ip = data.ip || "";
-          const usingCloudflare = data.org && data.org.includes("Cloudflare");
+          let ip = data.ip || '---';
+          let country = data.country || 'IR';
+          let flag = `https://flagcdn.com/24x18/${country.toLowerCase()}.png`;
+          let org = (data.org || "").toLowerCase();
 
-          const displayIP = ip ? `${ip} <img class="flag" src="${flagUrl}">` : `ایران <img class="flag" src="https://flagsapi.com/IR/flat/24.png">`;
-          const cloudflareStatus = usingCloudflare ? 'شما در حال استفاده از سرویس می‌باشید' : 'شما در حال استفاده از سرویس نمی‌باشید';
+          document.getElementById("ip-display").innerHTML = `<img src="${flag}" alt="flag"> ${ip}`;
 
-          document.getElementById('ipDisplay').innerHTML = `
-            IP شما: ${displayIP}<br>${cloudflareStatus}
-          `;
+          if (org.includes("cloudflare")) {
+            document.getElementById("cf-status").innerHTML = `<span class="status">شما در حال استفاده از سرویس می‌باشید</span>`;
+          } else {
+            document.getElementById("cf-status").innerHTML = `<span style="color:#ffa726;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
+          }
         })
         .catch(() => {
-          document.getElementById('ipDisplay').innerHTML = `
-            IP شما: ایران <img class="flag" src="https://flagsapi.com/IR/flat/24.png"><br>
-            شما در حال استفاده از سرویس نمی‌باشید
-          `;
+          document.getElementById("ip-display").innerHTML = `<img src="https://flagcdn.com/24x18/ir.png" alt="flag"> ایران`;
+          document.getElementById("cf-status").innerHTML = `<span style="color:#ffa726;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
         });
     }
 
     function testSpeed() {
-      const startTime = new Date().getTime();
-      fetch("https://speed.hetzner.de/100MB.bin", { method: "GET" })
+      const start = performance.now();
+      fetch("https://speed.hetzner.de/100MB.bin", { method: "GET", cache: "no-store" })
         .then(() => {
-          const endTime = new Date().getTime();
-          const duration = (endTime - startTime) / 1000;
-          const speedMbps = (100 / duration).toFixed(2);
-          document.getElementById("speedOutput").innerText = `سرعت تقریبی: ${speedMbps} Mbps`;
+          const end = performance.now();
+          const time = (end - start) / 1000;
+          const speedMbps = (100 / time).toFixed(2);
+          document.getElementById("speed-result").innerText = `سرعت شما: ${speedMbps} Mbps`;
         })
         .catch(() => {
-          document.getElementById("speedOutput").innerText = "خطا در تست سرعت.";
+          document.getElementById("speed-result").innerText = "خطا در تست سرعت";
         });
     }
   </script>
