@@ -2,9 +2,9 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <title>SPEED+</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ورود | داشبورد کاربر</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'IRANSans';
@@ -12,92 +12,79 @@
     }
 
     * {
+      margin: 0; padding: 0;
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'IRANSans', 'Poppins', sans-serif;
+      font-family: 'IRANSans', 'Vazirmatn', sans-serif;
     }
 
     body {
-      background: url('https://images.unsplash.com/photo-1522199778941-4be1b180ba00?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      height: 100vh;
       color: #fff;
     }
 
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: -1;
-    }
-
-    .login-box {
-      width: 300px;
-      padding: 30px;
+    .centered-box {
+      max-width: 340px;
       margin: 100px auto;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      padding: 30px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
       backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #00ffcc55;
     }
 
-    .login-box h2 {
+    h2 {
       text-align: center;
       margin-bottom: 20px;
+      color: #00ffc8;
+      text-shadow: 0 0 5px #00ffc8;
     }
 
-    .login-box input {
+    input, button {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-top: 10px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 15px;
     }
 
-    .login-box button {
-      width: 100%;
-      padding: 10px;
-      background: #00e676;
+    input {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    button {
+      background: #00ffc8;
       color: #000;
-      border: none;
-      border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00e6b8;
     }
 
     #dashboard {
       display: none;
-      padding: 30px;
+      padding: 20px;
+      max-width: 800px;
+      margin: 30px auto;
     }
 
-    .section {
-      background: rgba(255,255,255,0.1);
+    .card {
+      background: rgba(255,255,255,0.05);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 15px #00ffc855;
       backdrop-filter: blur(8px);
     }
 
-    .section h3 {
-      margin-bottom: 10px;
-    }
-
-    .info-line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .info-line img {
-      width: 24px;
-      height: 16px;
-      border-radius: 2px;
-      object-fit: cover;
-    }
-
-    .status {
-      color: #00ff90;
-      text-shadow: 0 0 5px #00ff90;
+    .status-neon {
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffcc;
       font-weight: bold;
     }
 
@@ -112,47 +99,66 @@
     .credit-bar-inner {
       height: 100%;
       width: 80%;
-      background: linear-gradient(90deg, #00e676, #00c853);
+      background: linear-gradient(90deg, #00ffc8, #00e6b8);
+    }
+
+    .info-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .info-line img {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 3px;
+    }
+
+    .error-msg {
+      color: #f44336;
+      text-align: center;
+      margin-top: 10px;
     }
 
     .speed-test-result {
-      font-size: 20px;
       margin-top: 10px;
+      font-size: 15px;
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
 
-  <div class="login-box" id="login">
-    <h2>ورود به پنل</h2>
+  <div class="centered-box" id="login-box">
+    <h2>ورود</h2>
     <input type="text" id="username" placeholder="نام کاربری" />
     <input type="password" id="password" placeholder="رمز عبور" />
-    <button onclick="login()">ورود</button>
+    <button onclick="handleLogin()">ورود</button>
+    <div class="error-msg" id="login-error"></div>
   </div>
 
   <div id="dashboard">
-    <div class="section">
+    <div class="card">
       <div class="info-line">
-        <span>اتصال امن (HTTPS):</span>
-        <span class="status">فعال</span>
-        <span class="status" style="margin-right: auto;">سرویس شما فعال می‌باشد</span>
+        اتصال امن: <span class="status-neon">فعال</span>
+        <span style="margin-right: auto;" class="status-neon">سرویس شما فعال می‌باشد</span>
       </div>
     </div>
 
-    <div class="section" id="ip-info">
+    <div class="card">
       <h3>اطلاعات شبکه</h3>
-      <div class="info-line" id="ip-display">در حال دریافت IP...</div>
-      <div id="cf-status" style="margin-top:10px;"></div>
+      <div class="info-line" id="ip-display">در حال دریافت اطلاعات IP...</div>
+      <div id="cf-status" style="margin-top: 10px;"></div>
     </div>
 
-    <div class="section">
+    <div class="card">
       <h3>مانده اعتبار</h3>
       <div class="credit-bar"><div class="credit-bar-inner"></div></div>
-      <div>80٪ باقی مانده</div>
+      <div>۸۰٪ باقی مانده</div>
     </div>
 
-    <div class="section">
+    <div class="card">
       <h3>تست سرعت</h3>
       <button onclick="testSpeed()">شروع تست</button>
       <div class="speed-test-result" id="speed-result"></div>
@@ -162,32 +168,40 @@
   <script>
     const IPINFO_TOKEN = "8824fa830e1d01";
 
-    function login() {
-      document.getElementById("login").style.display = "none";
-      document.getElementById("dashboard").style.display = "block";
-      loadIPInfo();
+    function handleLogin() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const error = document.getElementById("login-error");
+
+      if (user === "admin" && pass === "1234") {
+        document.getElementById("login-box").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        loadIPInfo();
+      } else {
+        error.textContent = "نام کاربری یا رمز عبور اشتباه است.";
+      }
     }
 
     function loadIPInfo() {
       fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-          let ip = data.ip || '---';
-          let country = data.country || 'IR';
-          let flag = `https://flagcdn.com/24x18/${country.toLowerCase()}.png`;
-          let org = (data.org || "").toLowerCase();
+          const ip = data.ip || "---";
+          const country = data.country || "IR";
+          const flag = `https://flagcdn.com/24x18/${country.toLowerCase()}.png`;
+          const org = (data.org || "").toLowerCase();
 
-          document.getElementById("ip-display").innerHTML = `<img src="${flag}" alt="flag"> ${ip}`;
+          document.getElementById("ip-display").innerHTML = `<img src="${flag}"> ${ip}`;
 
           if (org.includes("cloudflare")) {
-            document.getElementById("cf-status").innerHTML = `<span class="status">شما در حال استفاده از سرویس می‌باشید</span>`;
+            document.getElementById("cf-status").innerHTML = `<span class="status-neon">شما در حال استفاده از سرویس می‌باشید</span>`;
           } else {
-            document.getElementById("cf-status").innerHTML = `<span style="color:#ffa726;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
+            document.getElementById("cf-status").innerHTML = `<span style="color: #ff9800;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
           }
         })
         .catch(() => {
-          document.getElementById("ip-display").innerHTML = `<img src="https://flagcdn.com/24x18/ir.png" alt="flag"> ایران`;
-          document.getElementById("cf-status").innerHTML = `<span style="color:#ffa726;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
+          document.getElementById("ip-display").innerHTML = `<img src="https://flagcdn.com/24x18/ir.png"> ایران`;
+          document.getElementById("cf-status").innerHTML = `<span style="color: #ff9800;">شما در حال استفاده از سرویس نمی‌باشید</span>`;
         });
     }
 
@@ -197,8 +211,8 @@
         .then(() => {
           const end = performance.now();
           const time = (end - start) / 1000;
-          const speedMbps = (100 / time).toFixed(2);
-          document.getElementById("speed-result").innerText = `سرعت شما: ${speedMbps} Mbps`;
+          const speed = (100 / time).toFixed(2);
+          document.getElementById("speed-result").innerText = `سرعت شما: ${speed} Mbps`;
         })
         .catch(() => {
           document.getElementById("speed-result").innerText = "خطا در تست سرعت";
