@@ -1,226 +1,298 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <title>ورود | داشبورد</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&family=Roboto&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; direction: rtl; }
-    body {
-      font-family: 'Vazirmatn', 'Roboto', sans-serif;
-      background: linear-gradient(to top left, #1e1e2f, #3e3e5e);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .hidden { display: none; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>سایت مدرن با داشبورد</title>
 
-    .login-container, .dashboard {
-      width: 100%;
-      max-width: 420px;
-    }
+<!-- فونت‌های فارسی و انگلیسی -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
 
-    .login-box {
-      background: rgba(255,255,255,0.07);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
+<style>
+  /* فونت‌ها */
+  body {
+    font-family: 'Vazir', 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eee;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    direction: rtl;
+  }
 
-    .login-box h2 { margin-bottom: 20px; }
+  .centered {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255 255 255 / 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(0, 255, 150, 0.3);
+    padding: 30px;
+    text-align: center;
+  }
 
-    .login-box input {
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background-color: rgba(255,255,255,0.1);
-      color: white;
-    }
+  h2 {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
 
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background-color: #00b894;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background: rgba(255 255 255 / 0.12);
+    color: #e0e0e0;
+    transition: background-color 0.3s ease;
+  }
 
-    .login-box button:hover { background-color: #019875; }
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    background: rgba(255 255 255 / 0.25);
+  }
 
-    .dashboard h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f2027;
+    background: #00ff99;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-    .card {
-      background: rgba(255,255,255,0.05);
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      backdrop-filter: blur(6px);
-      text-align: center;
-    }
+  button:hover {
+    background: #00e688;
+  }
 
-    .card button {
-      padding: 10px 20px;
-      background: #0984e3;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+  /* داشبورد */
+  .hidden {
+    display: none;
+  }
 
-    .ip-flag {
-      vertical-align: middle;
-      width: 24px;
-      height: 16px;
-      border-radius: 2px;
-      margin-left: 8px;
-    }
+  header {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    margin-bottom: 30px;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
 
-    .progress-bar {
-      width: 100%;
-      background-color: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
+  .status-items {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
-    .progress-bar-fill {
-      height: 14px;
-      background: linear-gradient(to right, #00cec9, #0984e3);
-      width: 0%;
-      transition: width 1s ease-in-out;
-    }
+  /* پیام نئون سبز */
+  .neon-green {
+    font-weight: bold;
+    color: #00ff99;
+    text-shadow:
+      0 0 5px #00ff99,
+      0 0 10px #00ff99,
+      0 0 20px #00ff99,
+      0 0 40px #00ff99;
+    font-size: 1rem;
+  }
 
-    .credit-label {
-      font-size: 16px;
-      font-weight: bold;
-    }
+  /* کارت‌ها */
+  main {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+  .card {
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 255, 150, 0.15);
+    padding: 25px;
+    flex: 1 1 280px;
+    min-width: 280px;
+    color: #d0f0e8;
+  }
 
-    .neon-green {
-      color: #39ff14;
-      font-weight: bold;
-      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;
-    }
-  </style>
+  .credit-card {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, #00ff99, #007f5f);
+    color: #0f2027;
+    box-shadow: 0 0 25px #00ff99;
+    user-select: none;
+    border: 3px solid #00ff99;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+  }
+
+  #credit-amount {
+    font-size: 3rem;
+  }
+
+  /* بخش اطلاعات شبکه */
+  #ip-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .ip-flag {
+    width: 24px;
+    height: 18px;
+    border-radius: 3px;
+    object-fit: cover;
+    filter: drop-shadow(0 0 1px rgba(0,0,0,0.6));
+  }
+
+  /* تست سرعت */
+  #speed-result {
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-height: 40px;
+    color: #00ff99;
+    text-align: center;
+  }
+
+  #speed-test-btn {
+    padding: 10px 20px;
+    font-weight: 700;
+    border-radius: 14px;
+    background: #00ff99;
+    color: #0f2027;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #speed-test-btn:hover {
+    background: #00e688;
+  }
+</style>
 </head>
 <body>
-  <div id="login-section" class="login-container">
-    <div class="login-box">
-      <h2>ورود</h2>
-      <input type="text" id="username" placeholder="نام کاربری">
-      <input type="password" id="password" placeholder="رمز عبور">
-      <button onclick="login()">ورود</button>
-    </div>
+  <div id="login-section" class="centered">
+    <form id="login-form" onsubmit="event.preventDefault(); login();">
+      <h2>ورود به حساب کاربری</h2>
+      <input type="text" id="username" placeholder="نام کاربری" autocomplete="username" required />
+      <input type="password" id="password" placeholder="رمز عبور" autocomplete="current-password" required />
+      <button type="submit">ورود</button>
+    </form>
   </div>
 
-  <div id="dashboard-section" class="dashboard hidden">
-    <h1>داشبورد کاربر</h1>
-
-    <div class="card">
-      <div class="credit-label">مانده اعتبار: <span id="credit-text">85%</span></div>
-      <div class="progress-bar">
-        <div id="credit-bar" class="progress-bar-fill"></div>
+  <div id="dashboard-section" class="hidden">
+    <header>
+      <div class="status-items">
+        <div id="https-status">
+          <strong>اتصال امن: </strong><span id="https-text">در حال بررسی...</span>
+        </div>
+        <div id="service-active" class="neon-green">سرویس شما فعال می‌باشد</div>
       </div>
-    </div>
+    </header>
 
-    <div class="card">
-      <div class="status-row">
-        <span><strong>وضعیت اتصال:</strong> <span id="https-status">در حال بررسی...</span></span>
-        <span class="neon-green">سرویس شما فعال می‌باشد</span>
-      </div>
-    </div>
+    <main>
+      <section class="card credit-card">
+        <h3>مانده اعتبار</h3>
+        <div id="credit-amount">85%</div>
+      </section>
 
-    <div class="card">
-      <strong>آی‌پی شما:</strong> <span id="ip-info">در حال دریافت...</span>
-    </div>
+      <section class="card">
+        <h3>تست سرعت اینترنت</h3>
+        <button id="speed-test-btn" onclick="runSpeedTest()">شروع تست سرعت</button>
+        <div id="speed-result"></div>
+      </section>
 
-    <div class="card">
-      <button onclick="runSpeedTest()">تست سرعت</button>
-      <p id="speed-result">در انتظار شروع تست...</p>
-    </div>
+      <section class="card">
+        <h3>اطلاعات شبکه</h3>
+        <div><strong>آی‌پی شما:</strong></div>
+        <div id="ip-info" style="margin-top: 6px;">در حال دریافت...</div>
+        <div id="cf-status" style="margin-top: 6px;"></div>
+      </section>
+    </main>
   </div>
 
-  <script>
-    function login() {
-      const user = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      if (user && pass) {
-        document.getElementById("login-section").classList.add("hidden");
-        document.getElementById("dashboard-section").classList.remove("hidden");
-        checkHttps();
-        getIP();
-        setCredit(85); // درصد دلخواه
-      } else {
-        alert("لطفاً نام کاربری و رمز را وارد کنید.");
-      }
+<script>
+  // ورود و نمایش داشبورد
+  function login() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    if (user && pass) {
+      document.getElementById("login-section").classList.add("hidden");
+      document.getElementById("dashboard-section").classList.remove("hidden");
+      checkHttps();
+      getIP();
+      setCredit(85); // درصد دلخواه مانده اعتبار
+    } else {
+      alert("لطفاً نام کاربری و رمز را وارد کنید.");
     }
+  }
 
-    function checkHttps() {
-      const el = document.getElementById("https-status");
-      if (location.protocol === "https:") {
-        el.textContent = "✅ اتصال امن (HTTPS)";
-        el.style.color = "lightgreen";
-      } else {
-        el.textContent = "⚠️ اتصال ناامن (HTTP)";
-        el.style.color = "orange";
-      }
+  // نمایش وضعیت HTTPS
+  function checkHttps() {
+    const httpsText = document.getElementById("https-text");
+    if (location.protocol === "https:") {
+      httpsText.textContent = "فعال ✅";
+      httpsText.style.color = "#00ff99";
+    } else {
+      httpsText.textContent = "غیرفعال ❌";
+      httpsText.style.color = "orange";
     }
+  }
 
-    function getIP() {
-      fetch("https://ipinfo.io/json?token=8824fa830e1d01")
-        .then(res => res.json())
-        .then(data => {
-          const flagURL = `https://flagcdn.com/24x18/${data.country.toLowerCase()}.png`;
-          document.getElementById("ip-info").innerHTML = `<img class="ip-flag" src="${flagURL}" alt="${data.country}"> ${data.ip} (${data.country})`;
-        })
-        .catch(() => {
-          document.getElementById("ip-info").textContent = "❌ خطا در دریافت آی‌پی";
-        });
-    }
+  // تنظیم مانده اعتبار
+  function setCredit(percent) {
+    const credit = document.getElementById("credit-amount");
+    credit.textContent = percent + "%";
+  }
 
-    function runSpeedTest() {
-      const startTime = performance.now();
-      fetch("https://corsproxy.io/?https://speed.cloudflare.com/__down?bytes=5000000", { cache: "no-store" })
-        .then(() => {
-          const endTime = performance.now();
-          const duration = (endTime - startTime) / 1000;
-          const bitsLoaded = 5000000 * 8;
-          const speedMbps = (bitsLoaded / duration / 1024 / 1024).toFixed(2);
-          document.getElementById("speed-result").textContent = `📶 سرعت تقریبی: ${speedMbps} مگابیت بر ثانیه`;
-        })
-        .catch(() => {
-          document.getElementById("speed-result").textContent = "❌ تست سرعت با خطا مواجه شد";
-        });
-    }
+  // نمایش IP و وضعیت کلودفلر
+  function getIP() {
+    fetch("https://ipinfo.io/json?token=8824fa830e1d01")
+      .then(res => res.json())
+      .then(data => {
+        if (!data.ip || !data.country) {
+          // اگر داده‌ها نبود، ایران و پرچم ایران نمایش داده میشه
+          showDefaultIP();
+          return;
+        }
+        const flagURL = `https://flagcdn.com/24x18/${data.country.toLowerCase()}.png`;
+        document.getElementById("ip-info").innerHTML = `<img class="ip-flag" src="${flagURL}" alt="${data.country}"> ${data.ip} (${data.country})`;
 
-    function setCredit(percent) {
-      const fill = document.getElementById("credit-bar");
-      const label = document.getElementById("credit-text");
-      fill.style.width = percent + "%";
-      label.textContent = percent + "%";
-    }
-  </script>
-</body>
-</html>
+        // بررسی استفاده از کلودفلر
+        const orgStr = (data.org || "").toLowerCase();
+        const hostStr = (data.hostname || "").toLowerCase();
+        const usingCF = orgStr.includes("cloudflare") || hostStr.includes("cloudflare");
+        const cfStatus = document.getElementById("cf-status");
+
+        if (usingCF) {
+          cfStatus.innerHTML = `<span style="color: #00ff99; font-weight:bold;">✅ شما در حال استفاده از سرویس می‌باشید</span>`;
+        } else {
+          cfStatus.innerHTML = `<span style="color: orange; font-weight:bold;">⚠️ شما در حال استفاده از سرویس نمی‌باشید</span>`;
+        }
+      })
+      .catch(()
